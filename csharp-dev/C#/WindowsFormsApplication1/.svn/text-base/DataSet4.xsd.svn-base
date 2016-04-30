@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet4" targetNamespace="http://tempuri.org/DataSet4.xsd" xmlns:mstns="http://tempuri.org/DataSet4.xsd" xmlns="http://tempuri.org/DataSet4.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet4" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet4" msprop:Generator_UserDSName="DataSet4">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable4" msprop:Generator_TableClassName="DataTable4DataTable" msprop:Generator_TableVarName="tableDataTable4" msprop:Generator_TablePropName="DataTable4" msprop:Generator_RowDeletingName="DataTable4RowDeleting" msprop:Generator_UserTableName="DataTable4" msprop:Generator_RowChangingName="DataTable4RowChanging" msprop:Generator_RowEvHandlerName="DataTable4RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable4RowDeleted" msprop:Generator_RowEvArgName="DataTable4RowChangeEvent" msprop:Generator_RowChangedName="DataTable4RowChanged" msprop:Generator_RowClassName="DataTable4Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="project_number" msprop:Generator_ColumnVarNameInTable="columnproject_number" msprop:Generator_ColumnPropNameInRow="project_number" msprop:Generator_ColumnPropNameInTable="project_numberColumn" msprop:Generator_UserColumnName="project_number" type="xs:string" minOccurs="0" />
+              <xs:element name="project_name" msprop:Generator_ColumnVarNameInTable="columnproject_name" msprop:Generator_ColumnPropNameInRow="project_name" msprop:Generator_ColumnPropNameInTable="project_nameColumn" msprop:Generator_UserColumnName="project_name" type="xs:string" minOccurs="0" />
+              <xs:element name="billing_amt" msprop:Generator_ColumnVarNameInTable="columnbilling_amt" msprop:Generator_ColumnPropNameInRow="billing_amt" msprop:Generator_ColumnPropNameInTable="billing_amtColumn" msprop:Generator_UserColumnName="billing_amt" type="xs:string" minOccurs="0" />
+              <xs:element name="paid_amt" msprop:Generator_ColumnVarNameInTable="columnpaid_amt" msprop:Generator_ColumnPropNameInRow="paid_amt" msprop:Generator_ColumnPropNameInTable="paid_amtColumn" msprop:Generator_UserColumnName="paid_amt" type="xs:string" minOccurs="0" />
+              <xs:element name="chkd_actcost" msprop:Generator_ColumnVarNameInTable="columnchkd_actcost" msprop:Generator_ColumnPropNameInRow="chkd_actcost" msprop:Generator_ColumnPropNameInTable="chkd_actcostColumn" msprop:Generator_UserColumnName="chkd_actcost" type="xs:string" minOccurs="0" />
+              <xs:element name="project_actcost" msprop:Generator_ColumnVarNameInTable="columnproject_actcost" msprop:Generator_ColumnPropNameInRow="project_actcost" msprop:Generator_ColumnPropNameInTable="project_actcostColumn" msprop:Generator_UserColumnName="project_actcost" type="xs:string" minOccurs="0" />
+              <xs:element name="est_gp" msprop:Generator_ColumnVarNameInTable="columnest_gp" msprop:Generator_ColumnPropNameInRow="est_gp" msprop:Generator_ColumnPropNameInTable="est_gpColumn" msprop:Generator_UserColumnName="est_gp" type="xs:string" minOccurs="0" />
+              <xs:element name="payact_gp" msprop:Generator_ColumnVarNameInTable="columnpayact_gp" msprop:Generator_ColumnPropNameInRow="payact_gp" msprop:Generator_ColumnPropNameInTable="payact_gpColumn" msprop:Generator_UserColumnName="payact_gp" type="xs:string" minOccurs="0" />
+              <xs:element name="estimator" msprop:Generator_ColumnVarNameInTable="columnestimator" msprop:Generator_ColumnPropNameInRow="estimator" msprop:Generator_ColumnPropNameInTable="estimatorColumn" msprop:Generator_UserColumnName="estimator" type="xs:string" minOccurs="0" />
+              <xs:element name="estimator_percent" msprop:Generator_ColumnVarNameInTable="columnestimator_percent" msprop:Generator_ColumnPropNameInRow="estimator_percent" msprop:Generator_ColumnPropNameInTable="estimator_percentColumn" msprop:Generator_UserColumnName="estimator_percent" type="xs:string" minOccurs="0" />
+              <xs:element name="estimator_comm" msprop:Generator_ColumnVarNameInTable="columnestimator_comm" msprop:Generator_ColumnPropNameInRow="estimator_comm" msprop:Generator_ColumnPropNameInTable="estimator_commColumn" msprop:Generator_UserColumnName="estimator_comm" type="xs:string" minOccurs="0" />
+              <xs:element name="salesperson" msprop:Generator_ColumnVarNameInTable="columnsalesperson" msprop:Generator_ColumnPropNameInRow="salesperson" msprop:Generator_ColumnPropNameInTable="salespersonColumn" msprop:Generator_UserColumnName="salesperson" type="xs:string" minOccurs="0" />
+              <xs:element name="salesperson_percent" msprop:Generator_ColumnVarNameInTable="columnsalesperson_percent" msprop:Generator_ColumnPropNameInRow="salesperson_percent" msprop:Generator_ColumnPropNameInTable="salesperson_percentColumn" msprop:Generator_UserColumnName="salesperson_percent" type="xs:string" minOccurs="0" />
+              <xs:element name="salesperson_comm" msprop:Generator_ColumnVarNameInTable="columnsalesperson_comm" msprop:Generator_ColumnPropNameInRow="salesperson_comm" msprop:Generator_ColumnPropNameInTable="salesperson_commColumn" msprop:Generator_UserColumnName="salesperson_comm" type="xs:string" minOccurs="0" />
+              <xs:element name="projectmgr" msprop:Generator_ColumnVarNameInTable="columnprojectmgr" msprop:Generator_ColumnPropNameInRow="projectmgr" msprop:Generator_ColumnPropNameInTable="projectmgrColumn" msprop:Generator_UserColumnName="projectmgr" type="xs:string" minOccurs="0" />
+              <xs:element name="projectmgr_percent" msprop:Generator_ColumnVarNameInTable="columnprojectmgr_percent" msprop:Generator_ColumnPropNameInRow="projectmgr_percent" msprop:Generator_ColumnPropNameInTable="projectmgr_percentColumn" msprop:Generator_UserColumnName="projectmgr_percent" type="xs:string" minOccurs="0" />
+              <xs:element name="projectmgr_comm" msprop:Generator_ColumnVarNameInTable="columnprojectmgr_comm" msprop:Generator_ColumnPropNameInRow="projectmgr_comm" msprop:Generator_ColumnPropNameInTable="projectmgr_commColumn" msprop:Generator_UserColumnName="projectmgr_comm" type="xs:string" minOccurs="0" />
+              <xs:element name="projectasst" msprop:Generator_ColumnVarNameInTable="columnprojectasst" msprop:Generator_ColumnPropNameInRow="projectasst" msprop:Generator_ColumnPropNameInTable="projectasstColumn" msprop:Generator_UserColumnName="projectasst" type="xs:string" minOccurs="0" />
+              <xs:element name="projectasst_percent" msprop:Generator_ColumnVarNameInTable="columnprojectasst_percent" msprop:Generator_ColumnPropNameInRow="projectasst_percent" msprop:Generator_ColumnPropNameInTable="projectasst_percentColumn" msprop:Generator_UserColumnName="projectasst_percent" type="xs:string" minOccurs="0" />
+              <xs:element name="projectasst_comm" msprop:Generator_ColumnVarNameInTable="columnprojectasst_comm" msprop:Generator_ColumnPropNameInRow="projectasst_comm" msprop:Generator_ColumnPropNameInTable="projectasst_commColumn" msprop:Generator_UserColumnName="projectasst_comm" type="xs:string" minOccurs="0" />
+              <xs:element name="dtgen" msprop:Generator_ColumnVarNameInTable="columndtgen" msprop:Generator_ColumnPropNameInRow="dtgen" msprop:Generator_ColumnPropNameInTable="dtgenColumn" msprop:Generator_UserColumnName="dtgen" type="xs:string" minOccurs="0" />
+              <xs:element name="customer_name" msprop:Generator_ColumnVarNameInTable="columncustomer_name" msprop:Generator_ColumnPropNameInRow="customer_name" msprop:Generator_ColumnPropNameInTable="customer_nameColumn" msprop:Generator_UserColumnName="customer_name" type="xs:string" minOccurs="0" />
+              <xs:element name="job_name" msprop:Generator_ColumnVarNameInTable="columnjob_name" msprop:Generator_ColumnPropNameInRow="job_name" msprop:Generator_ColumnPropNameInTable="job_nameColumn" msprop:Generator_UserColumnName="job_name" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug
+END
+CrystalDecisions.CrystalReports.Engine.dll
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/CrystalDecisions.CrystalReports.Engine.dll
+END
+WindowsFormsApplication1.vshost.exe.config
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.vshost.exe.config
+END
+WindowsFormsApplication1.vshost.exe.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.vshost.exe.manifest
+END
+CrystalDecisions.Shared.dll
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/CrystalDecisions.Shared.dll
+END
+WindowsFormsApplication1.exe
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.exe
+END
+CrystalDecisions.ReportSource.dll
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/CrystalDecisions.ReportSource.dll
+END
+MySql.Data.dll
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/MySql.Data.dll
+END
+CrystalDecisions.Windows.Forms.dll
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/CrystalDecisions.Windows.Forms.dll
+END
+WindowsFormsApplication1.exe.config
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.exe.config
+END
+WindowsFormsApplication1.pdb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.pdb
+END
+WindowsFormsApplication1.vshost.exe
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/csharp-dev/!svn/ver/5/trunk/C%23/WindowsFormsApplication1/bin/Debug/WindowsFormsApplication1.vshost.exe
+END
