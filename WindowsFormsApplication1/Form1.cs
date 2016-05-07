@@ -91,8 +91,7 @@ namespace WindowsFormsApplication1
 
                 //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
                 string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-                SqlConnection sqlConn = new SqlConnection(connectionString);
-                //MySqlConnection MySqlConn = new MySqlConnection(connectionString); DM Remove this
+                SqlConnection sqlConn = new SqlConnection(connectionString);              
 
                 try
                 {
@@ -108,7 +107,7 @@ namespace WindowsFormsApplication1
                     //DataTable table =  new companyDS.companyDataTable();
                     DataTable table = GetDataTable(
                         // Pass open database connection to function
-            ref MySqlConn,
+            ref sqlConn,
                         // Pass SQL statement to create SqlDataReader
             commandString7);
 
@@ -119,7 +118,7 @@ namespace WindowsFormsApplication1
 
 
                 }
-                catch (MySqlException ex)
+                catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -147,23 +146,23 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
             
 
             
             try
             {
-                MySqlConn.Open();
+                SqlConn.Open();
                 string commandString = ("UPDATE company SET company_name = '" + txtcname.Text.Trim() + "', " + "address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.SelectedItem.ToString()  + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "' WHERE company_name = '" + txtcname.Text.Trim() + "'");
                 textBox1.Text = commandString;
-                MySqlCommand mysqlcommand = new MySqlCommand(commandString, MySqlConn);
+                SqlCommand mysqlcommand = new SqlCommand(commandString, SqlConn);
 
                 companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
 
                 //DataTable table =  new companyDS.companyDataTable();
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
         commandString);
 
@@ -176,7 +175,7 @@ namespace WindowsFormsApplication1
                 txtcontact.Text = " ";
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -193,16 +192,16 @@ namespace WindowsFormsApplication1
             cbocname.Items.Clear();
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
 
-            MySqlConn.Open();
+            SqlConn.Open();
 
             string commandString31 = ("SELECT ALL company_name FROM company ORDER BY company_name ASC");
-            MySqlCommand mysqlcommand = new MySqlCommand(commandString31, MySqlConn);
+            SqlCommand mysqlcommand = new SqlCommand(commandString31, SqlConn);
 
             DataTable table = GetDataTable(
                 // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
         commandString31);
             // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -218,10 +217,10 @@ namespace WindowsFormsApplication1
 
 
             string commandString66 = ("SELECT psname FROM projectstaff");//, salesperson = '" + txtpjssp.Text.Trim() + "', projectmgr = '" + txtpjspm.Text.Trim() + "', projectasst = '" + txtpjspa.Text.Trim() + "'");
-            MySqlCommand mysqlcommand66 = new MySqlCommand(commandString66, MySqlConn);
+            SqlCommand mysqlcommand66 = new SqlCommand(commandString66, SqlConn);
             DataTable table66 = GetDataTable(
                 // Pass open database connection to function
-    ref MySqlConn,
+    ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
     commandString66);
 
@@ -261,7 +260,7 @@ namespace WindowsFormsApplication1
             //This populates the project grid view
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             MySqlConn.Open();
 
@@ -275,7 +274,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             
             try
@@ -288,7 +287,7 @@ namespace WindowsFormsApplication1
 
                 //this updates the job table
                 string commandString5 = ("UPDATE job SET job_name = '" + txtjobname.Text.Trim() + "', job_address = '" + txtjobaddr.Text.Trim() + "', job_city = '" + txtjobcity.Text.Trim() + "', job_state = '" + cbojobstate.Text.ToString() + "', job_zip = '" + txtjobzip.Text.Trim() + "' WHERE jid = '" + txtjid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand = new MySqlCommand(commandString5, MySqlConn);
+                SqlCommand mysqlcommand = new SqlCommand(commandString5, MySqlConn);
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
         ref MySqlConn,
@@ -318,7 +317,7 @@ namespace WindowsFormsApplication1
        
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -332,7 +331,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
 
@@ -375,7 +374,7 @@ namespace WindowsFormsApplication1
                     string commandString6 = ("INSERT into job SET cid = '" + txtjcid.Text + "', job_name = '" + txtjobname.Text.Trim() + "', job_address = '" + txtjobaddr.Text.Trim() + "', job_city = '" + txtjobcity.Text.Trim() + "', job_state = '" + cbojobstate.Text.Trim() + "', job_zip = '" + txtjobzip.Text.Trim() + "'");
 
 
-                    MySqlCommand mysqlcommand = new MySqlCommand(commandString6, MySqlConn);
+                    SqlCommand mysqlcommand = new SqlCommand(commandString6, MySqlConn);
 
                     companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
 
@@ -399,7 +398,7 @@ namespace WindowsFormsApplication1
 
                     //THis updates the data grid view with the newly inserted record
                     string commandString15 = ("SELECT jid, job_name, job_address, job_city, job_state, job_zip from job WHERE job.cid = '" + txtjcid.Text + "'");
-                    MySqlCommand mysqlcommand15 = new MySqlCommand(commandString15, MySqlConn);
+                    SqlCommand mysqlcommand15 = new SqlCommand(commandString15, MySqlConn);
 
                     DataTable table7 = GetDataTable(ref MySqlConn, commandString15);
                     dataGridView1.DataSource = table7;
@@ -417,7 +416,7 @@ namespace WindowsFormsApplication1
 
 
                 }
-                catch (MySqlException ex)
+                catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -461,14 +460,14 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commission" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
 
             try
             {
 
                
 
-                MySqlConn.Open();
+                SqlConn.Open();
                 //string commandString25 = ("SELECT company_name, address, state, phone_number, contact_person FROM company WHERE company_name LIKE '%" + txtcid.Text + "%'");
         //        string commandString26 = ("SELECT cid FROM job WHERE jid = '" + txtjobsrch.Text + "'");  //("SELECT company_name, address, state, phone_number, contact_person FROM company WHERE company_name = jc");  
         //        MySqlCommand mysqlcommand26 = new MySqlCommand(commandString26, MySqlConn);
@@ -500,14 +499,14 @@ namespace WindowsFormsApplication1
 
                 ///////////////grab company info with cid
                 string commandString27 = ("SELECT company_name, address, state, phone_number, contact_person FROM company WHERE cid = '" + txtjcid.Text + "'");  
-                MySqlCommand mysqlcommand27 = new MySqlCommand(commandString27, MySqlConn);
+                SqlCommand mysqlcommand27 = new SqlCommand(commandString27, SqlConn);
 
                 companyTableAdapter getcomp27 = new companyDSTableAdapters.companyTableAdapter();
 
                 //DataTable table =  new companyDS.companyDataTable();
                 DataTable table27 = GetDataTable(
                     // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
         commandString27);
 
@@ -525,7 +524,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -558,7 +557,7 @@ namespace WindowsFormsApplication1
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
 
@@ -568,7 +567,7 @@ namespace WindowsFormsApplication1
                 //This section populates the text fields
                 MySqlConn.Open();
                 string commandString = ("SELECT company_name, address, state, phone_number, contact_person, city, zip FROM company WHERE company_name = '" + cbocname.SelectedItem.ToString() + "'");
-                MySqlCommand mysqlcommand = new MySqlCommand(commandString, MySqlConn);
+                SqlCommand mysqlcommand = new SqlCommand(commandString, MySqlConn);
                 
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
@@ -596,7 +595,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -612,7 +611,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
 
@@ -621,7 +620,7 @@ namespace WindowsFormsApplication1
                 
                 //This section populates the text fields
                 string commandString = ("SELECT cid, company_name, address, state, phone_number, contact_person, city, zip FROM company WHERE company_name = '" + cbojcname.SelectedItem.ToString() + "'");
-                MySqlCommand mysqlcommand = new MySqlCommand(commandString, MySqlConn);
+                SqlCommand mysqlcommand = new SqlCommand(commandString, MySqlConn);
 
                 //companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
 
@@ -686,7 +685,7 @@ namespace WindowsFormsApplication1
                 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -702,7 +701,7 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
             try
@@ -746,7 +745,7 @@ namespace WindowsFormsApplication1
                 Projects.Show();
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -763,7 +762,7 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             try
             {
@@ -781,7 +780,7 @@ namespace WindowsFormsApplication1
                 txtpjsest.Text = " ";
 
                 string commandString66 = ("SELECT psname FROM projectstaff");//, salesperson = '" + txtpjssp.Text.Trim() + "', projectmgr = '" + txtpjspm.Text.Trim() + "', projectasst = '" + txtpjspa.Text.Trim() + "'");
-                MySqlCommand mysqlcommand66 = new MySqlCommand(commandString66, MySqlConn);
+                SqlCommand mysqlcommand66 = new SqlCommand(commandString66, MySqlConn);
                 DataTable table66 = GetDataTable(
                     // Pass open database connection to function
         ref MySqlConn,
@@ -793,7 +792,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
