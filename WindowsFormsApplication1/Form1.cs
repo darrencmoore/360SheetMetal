@@ -7,16 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WindowsFormsApplication1.companyDSTableAdapters;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using WindowsFormsApplication1.commissionDataSet1TableAdapters;
 using System.Diagnostics;
 using System.Configuration;
-
-
-
-
-
-
 
 namespace WindowsFormsApplication1
 {
@@ -25,33 +19,27 @@ namespace WindowsFormsApplication1
         public static string token;
         public static string token2;
         public static string token22;
-        //public static string token2;
+              
         public Form1()
         {
             InitializeComponent();
-           
-            
         }
 
         BindingSource bs = new BindingSource();
         public DataTable GetDataTable(
-        ref MySql.Data.MySqlClient.MySqlConnection  _SqlConnection,
-        string _SQL)
+        ref System.Data.SqlClient.SqlConnection _nSqlConnection, string _nSQL)       
         {
-            // Pass the connection to a command object
-            MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
-                            new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
-            MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
-                            = new MySql.Data.MySqlClient.MySqlDataAdapter();
-            _SqlDataAdapter.SelectCommand = _SqlCommand;
-
-            DataTable _DataTable = new DataTable();
-            _DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            // New SQL connection to a command object
+            SqlCommand _nSqlCommand = new SqlCommand(_nSQL, _nSqlConnection);
+            SqlDataAdapter _nSqlAdapter = new SqlDataAdapter();
+            _nSqlAdapter.SelectCommand = _nSqlCommand;
+            DataTable _nDataTable = new DataTable();
+            _nDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
             // Adds or refreshes rows in the DataSet to match those in the data source
             try
             {
-                _SqlDataAdapter.Fill(_DataTable);
+                _nSqlAdapter.Fill(_nDataTable);
             }
             catch (Exception _Exception)
             {
@@ -62,7 +50,7 @@ namespace WindowsFormsApplication1
                 return null;
             }
 
-            return _DataTable;
+            return _nDataTable;
         }
 
 
@@ -103,15 +91,17 @@ namespace WindowsFormsApplication1
 
                 //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
                 string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-                MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+                SqlConnection sqlConn = new SqlConnection(connectionString);
+                //MySqlConnection MySqlConn = new MySqlConnection(connectionString); DM Remove this
 
                 try
                 {
-
-                    MySqlConn.Open();
+                    sqlConn.Open();
+                    //MySqlConn.Open();
                     //company insert query
                     string commandString7 = ("INSERT into company SET company_name = '" + txtcname.Text.Trim() + "', address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.Text.Trim() + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "'");
-                    MySqlCommand mysqlcommand = new MySqlCommand(commandString7, MySqlConn);
+                    SqlCommand sqlcommand = new SqlCommand(commandString7, sqlConn);
+                    //MySqlCommand mysqlcommand = new MySqlCommand(commandString7, MySqlConn);
 
                     //companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
 
