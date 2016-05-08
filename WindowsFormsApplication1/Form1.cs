@@ -95,16 +95,10 @@ namespace WindowsFormsApplication1
 
                 try
                 {
-                    sqlConn.Open();
-                    //MySqlConn.Open();
+                    sqlConn.Open();                   
                     //company insert query
                     string commandString7 = ("INSERT into company SET company_name = '" + txtcname.Text.Trim() + "', address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.Text.Trim() + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "'");
-                    SqlCommand sqlcommand = new SqlCommand(commandString7, sqlConn);
-                    //MySqlCommand mysqlcommand = new MySqlCommand(commandString7, MySqlConn);
-
-                    //companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
-
-                    //DataTable table =  new companyDS.companyDataTable();
+                    SqlCommand sqlcommand = new SqlCommand(commandString7, sqlConn);                   
                     DataTable table = GetDataTable(
                         // Pass open database connection to function
             ref sqlConn,
@@ -155,7 +149,7 @@ namespace WindowsFormsApplication1
                 SqlConn.Open();
                 string commandString = ("UPDATE company SET company_name = '" + txtcname.Text.Trim() + "', " + "address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.SelectedItem.ToString()  + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "' WHERE company_name = '" + txtcname.Text.Trim() + "'");
                 textBox1.Text = commandString;
-                SqlCommand mysqlcommand = new SqlCommand(commandString, SqlConn);
+                SqlCommand sqlcommand = new SqlCommand(commandString, SqlConn);
 
                 companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
 
