@@ -6,7 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 //using Excel =  Microsoft.Office.Interop.Excel;
 using System.Configuration;
 using System.Globalization;
@@ -58,23 +59,30 @@ namespace WindowsFormsApplication1
 
         BindingSource bs = new BindingSource();
         public DataTable GetDataTable(
-        ref MySql.Data.MySqlClient.MySqlConnection _SqlConnection,
-        string _SQL)
+        ref System.Data.SqlClient.SqlConnection _nSqlConnection,
+        string _nSQL)
         {
-            // Pass the connection to a command object
-            MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
-                            new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
-            MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
-                            = new MySql.Data.MySqlClient.MySqlDataAdapter();
-            _SqlDataAdapter.SelectCommand = _SqlCommand;
+            // New SQL connection to a command object
+            SqlCommand _nSqlCommand = new SqlCommand(_nSQL, _nSqlConnection);
+            SqlDataAdapter _nSqlDataAdapter = new SqlDataAdapter();
+            _nSqlDataAdapter.SelectCommand = _nSqlCommand;
+            DataTable _nDataTable = new DataTable();
+            _nDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
-            DataTable _DataTable = new DataTable();
-            _DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            //// Pass the connection to a command object
+            //MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
+            //                new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
+            //MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
+            //                = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            //_SqlDataAdapter.SelectCommand = _SqlCommand;
+
+            //DataTable _DataTable = new DataTable();
+            //_DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
             // Adds or refreshes rows in the DataSet to match those in the data source
             try
             {
-                _SqlDataAdapter.Fill(_DataTable);
+                _nSqlDataAdapter.Fill(_nDataTable);
             }
             catch (Exception _Exception)
             {
@@ -85,7 +93,7 @@ namespace WindowsFormsApplication1
                 return null;
             }
 
-            return _DataTable;
+            return _nDataTable;
         }
 
 
@@ -128,7 +136,7 @@ namespace WindowsFormsApplication1
             //populates the datagridview with billing statements
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
 
 
             try
@@ -138,11 +146,11 @@ namespace WindowsFormsApplication1
 
                 //**************************************THis command populates the estimator drop down
                 string commandString31 = ("SELECT ALL psname FROM projectstaff");
-                MySqlCommand mysqlcommand = new MySqlCommand(commandString31, MySqlConn);
+                SqlCommand mysqlcommand = new SqlCommand(commandString31, SqlConn);
 
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
-            ref MySqlConn,
+            ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
             commandString31);
                 // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -169,11 +177,11 @@ namespace WindowsFormsApplication1
 
             //    //*******************************************************This command populates the salesperson drop down box
                 string commandString32 = ("SELECT ALL psname FROM projectstaff");
-                MySqlCommand mysqlcommand32 = new MySqlCommand(commandString32, MySqlConn);
+                SqlCommand mysqlcommand32 = new SqlCommand(commandString32, SqlConn);
 
                 DataTable table32 = GetDataTable(
                     // Pass open database connection to function
-            ref MySqlConn,
+            ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
             commandString32);
                 // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -198,11 +206,11 @@ namespace WindowsFormsApplication1
 
             //    //***********************************************************This command populates the project manager drop down box
                 string commandString33 = ("SELECT ALL psname FROM projectstaff");
-                MySqlCommand mysqlcommand33 = new MySqlCommand(commandString33, MySqlConn);
+                SqlCommand mysqlcommand33 = new SqlCommand(commandString33, SqlConn);
 
                 DataTable table33 = GetDataTable(
                     // Pass open database connection to function
-            ref MySqlConn,
+            ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
             commandString33);
                 // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -227,11 +235,11 @@ namespace WindowsFormsApplication1
 
             //    //***************************************************This command populates the project assistant screen
                 string commandString34 = ("SELECT ALL psname FROM projectstaff");
-                MySqlCommand mysqlcommand34 = new MySqlCommand(commandString34, MySqlConn);
+                SqlCommand mysqlcommand34 = new SqlCommand(commandString34, SqlConn);
 
                 DataTable table34 = GetDataTable(
                     // Pass open database connection to function
-            ref MySqlConn,
+            ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
             commandString34);
                 // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -257,11 +265,11 @@ namespace WindowsFormsApplication1
                 //This is the statement to check if actual cost is being used
                 //********************************************************************************************************************************************
                 string commandString77 = ("SELECT chkd_actcost FROM projects WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                MySqlCommand mysqlcommand77 = new MySqlCommand(commandString77, MySqlConn);
+                SqlCommand mysqlcommand77 = new SqlCommand(commandString77, SqlConn);
 
                 DataTable table77 = GetDataTable(
                     // Pass open database connection to function
-       ref MySqlConn,
+       ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
        commandString77);
 
@@ -273,11 +281,11 @@ namespace WindowsFormsApplication1
                        
 
                        string commandString87 = ("SELECT assigned_estimator, estimator_percentage, estr_tl_paid, assigned_salesperson, salesperson_percentage, sp_tl_paid, assigned_pm, pm_percentage, pm_tl_paid, assigned_pa, pa_percentage, pa_tl_paid, prj_actcost, payact_gp, prj_saleamt FROM assignedps WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");// ORDER by act_tl_paiddate desc LIMIT 1");
-                       MySqlCommand mysqlcommand87 = new MySqlCommand(commandString87, MySqlConn);
+                       SqlCommand mysqlcommand87 = new SqlCommand(commandString87, SqlConn);
 
                        DataTable table87 = GetDataTable(
                            // Pass open database connection to function
-              ref MySqlConn,
+              ref SqlConn,
                            // Pass SQL statement to create SqlDataReader
               commandString87);
 
@@ -319,11 +327,11 @@ namespace WindowsFormsApplication1
 
 
                         string commandString88 = ("SELECT bid, project_number, project_name, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp, act_estrtl_paid, act_sptl_paid, act_pmtl_paid, act_patl_paid, chkd_actcost, chkd_calc FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");//, AND jid = '" + txtbjid.Text + "'");
-                        MySqlCommand mysqlcommand88 = new MySqlCommand(commandString88, MySqlConn);
+                        SqlCommand mysqlcommand88 = new SqlCommand(commandString88, SqlConn);
 
                         DataTable table88 = GetDataTable(
                             // Pass open database connection to function
-               ref MySqlConn,
+               ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                commandString88);
 
@@ -377,11 +385,11 @@ namespace WindowsFormsApplication1
                     {
 
                         string commandString2 = ("SELECT bid, project_name, project_number, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp, chkd_actcost, paid_stmt, chkd_calc FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");//, AND jid = '" + txtbjid.Text + "'");
-                        MySqlCommand mysqlcommand2 = new MySqlCommand(commandString2, MySqlConn);
+                        SqlCommand mysqlcommand2 = new SqlCommand(commandString2, SqlConn);
 
                         DataTable table2 = GetDataTable(
                             // Pass open database connection to function
-               ref MySqlConn,
+               ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                commandString2);
 
@@ -464,11 +472,11 @@ namespace WindowsFormsApplication1
 
                 //This updates the combo box with billing statements
                 string commandString21 = ("SELECT billing_num FROM billing WHERE pid = '" + txtbpid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand21 = new MySqlCommand(commandString21, MySqlConn);
+                SqlCommand mysqlcommand21 = new SqlCommand(commandString21, SqlConn);
 
                 DataTable table21 = GetDataTable(
                     // Pass open database connection to function
-       ref MySqlConn,
+       ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
        commandString21);
 
@@ -506,7 +514,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -606,14 +614,14 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
              try
              {
 
                  string commandString22 = ("SELECT assigned_estimator, estimator_percentage, assigned_salesperson, salesperson_percentage, assigned_pm, pm_percentage, assigned_pa, pa_percentage FROM assignedps WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                 MySqlCommand mysqlcommand22 = new MySqlCommand(commandString22, MySqlConn);
+                 SqlCommand mysqlcommand22 = new SqlCommand(commandString22, MySqlConn);
 
                  DataTable table22 = GetDataTable(
                      // Pass open database connection to function
@@ -671,7 +679,7 @@ namespace WindowsFormsApplication1
 
 
              }
-             catch (MySqlException ex)
+             catch (SqlException ex)
              {
                  MessageBox.Show(ex.Message);
              }   
@@ -685,17 +693,17 @@ namespace WindowsFormsApplication1
             
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
 
             List<DataRow> billingNums2Remove = new List<DataRow>();
 
             try
             {
                 string commandString100 = ("SELECT chkd_calc FROM billing WHERE bid = '" + txtbid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand100 = new MySqlCommand(commandString100, MySqlConn);
+                SqlCommand mysqlcommand100 = new SqlCommand(commandString100, SqlConn);
                 DataTable table100 = GetDataTable(
                     // Pass open database connection to function
-       ref MySqlConn,
+       ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
        commandString100);
 
@@ -730,11 +738,11 @@ namespace WindowsFormsApplication1
                     else
                     {
                             string commandString44 = ("UPDATE projects set chkd_actcost = 'T' WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                            MySqlCommand mysqlcommand44 = new MySqlCommand(commandString44, MySqlConn);
+                            SqlCommand mysqlcommand44 = new SqlCommand(commandString44, SqlConn);
 
                             DataTable table44 = GetDataTable(
                                 // Pass open database connection to function
-                        ref MySqlConn,
+                        ref SqlConn,
                                 // Pass SQL statement to create SqlDataReader
                         commandString44);
 
@@ -782,22 +790,22 @@ namespace WindowsFormsApplication1
                         //inserts into billing receives
                         //string commandString1 = ("UPDATE billing_received SET psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pest_cost = '" + txtbpestcost.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "' ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "'");
                         string commandString1 = ("INSERT into billing_received SET bid = '" + txtbid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pest_cost = '" + txtbpestcost.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "'");
-                        MySqlCommand mysqlcommand = new MySqlCommand(commandString1, MySqlConn);
+                        SqlCommand mysqlcommand = new SqlCommand(commandString1, SqlConn);
 
                         DataTable table = GetDataTable(
                             // Pass open database connection to function
-                    ref MySqlConn,
+                    ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                     commandString1);
 
                         //string commandString5 = ("UPDATE billing SET pid = '" + txtbpid.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "' WHERE bid = '" + txtbid.Text.Trim() + "'");
 
                         string commandString5 = ("UPDATE billing SET billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.ToString() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "' WHERE bid = '" + txtbid.Text.Trim() + "'");
-                        MySqlCommand mysqlcommand2 = new MySqlCommand(commandString5, MySqlConn);
+                        SqlCommand mysqlcommand2 = new SqlCommand(commandString5, SqlConn);
 
                         DataTable table2 = GetDataTable(
                             // Pass open database connection to function
-                    ref MySqlConn,
+                    ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                     commandString5);
 
@@ -849,11 +857,11 @@ namespace WindowsFormsApplication1
 
                         
                         string commandString4 = ("UPDATE billing_received SET psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pest_cost = '" + txtbpestcost.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "' WHERE bid = '" + txtbid.Text.Trim() + "'");
-                        MySqlCommand mysqlcommand = new MySqlCommand(commandString4, MySqlConn);
+                        SqlCommand mysqlcommand = new SqlCommand(commandString4, SqlConn);
 
                         DataTable table4 = GetDataTable(
                             // Pass open database connection to function
-                    ref MySqlConn,
+                    ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                     commandString4);
 
@@ -861,11 +869,11 @@ namespace WindowsFormsApplication1
 
                         string commandString6 = ("UPDATE billing SET billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', paid_stmt = 'Y' WHERE bid = '" + txtbid.Text.Trim() + "'");
 
-                        MySqlCommand mysqlcommand6 = new MySqlCommand(commandString6, MySqlConn);
+                        SqlCommand mysqlcommand6 = new SqlCommand(commandString6, SqlConn);
 
                         DataTable table6 = GetDataTable(
                             // Pass open database connection to function
-                    ref MySqlConn,
+                    ref SqlConn,
                             // Pass SQL statement to create SqlDataReader
                     commandString6);
                     }
@@ -876,10 +884,10 @@ namespace WindowsFormsApplication1
 
                 //Darren this updates data for comm job type
                 string commandString366 = ("UPDATE comm_job_type SET cid = '" + txtbcid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', name_1 = '" + cbobestperson.Text.Trim() + "', jtype_1 = 'Estimator', name_2 = '" + cbobsperson.Text.Trim() + "', jtype_2 = 'Salesperson', name_3 = '" + cbobpm.Text.Trim() + "', jtype_3 = 'ProjectManager', name_4 = '" + cbobpa.Text.Trim() + "', jtype_4 = 'ProjectAssistant' WHERE bid = '" + txtbid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand366 = new MySqlCommand(commandString366, MySqlConn);
+                SqlCommand mysqlcommand366 = new SqlCommand(commandString366, SqlConn);
                 DataTable table366 = GetDataTable(
                     // Pass open database connection to function
-       ref MySqlConn,
+       ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
        commandString366);
 
@@ -888,11 +896,11 @@ namespace WindowsFormsApplication1
                 //updates the datagrid view                
                 string commandString3 = ("SELECT bid, project_name, project_number, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp, paid_stmt FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
-                MySqlCommand mysqlcommand3 = new MySqlCommand(commandString3, MySqlConn);
+                SqlCommand mysqlcommand3 = new SqlCommand(commandString3, SqlConn);
 
                 DataTable table3 = GetDataTable(
                     // Pass open database connection to function
-            ref MySqlConn,
+            ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
             commandString3);
 
@@ -986,11 +994,11 @@ namespace WindowsFormsApplication1
                 //String x = "";
                 //This updates the combo box with billing statements
                 string commandString22 = ("SELECT billing_num FROM billing WHERE pid = '" + txtbpid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand22 = new MySqlCommand(commandString22, MySqlConn);
+                SqlCommand mysqlcommand22 = new SqlCommand(commandString22, SqlConn);
 
                 DataTable table22 = GetDataTable(
                     // Pass open database connection to function
-       ref MySqlConn,
+       ref SqlConn,
                     // Pass SQL statement to create SqlDataReader
        commandString22);
 
@@ -1015,7 +1023,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1029,7 +1037,7 @@ namespace WindowsFormsApplication1
             //int i = 0;
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             List<DataRow> billingNums3Remove = new List<DataRow>();
 
@@ -1099,7 +1107,7 @@ namespace WindowsFormsApplication1
 
 
                         string commandString7 = ("UPDATE projects SET chkd_actcost = 'T' WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                        MySqlCommand mysqlcommand7 = new MySqlCommand(commandString7, MySqlConn);
+                        SqlCommand mysqlcommand7 = new SqlCommand(commandString7, MySqlConn);
 
                         DataTable table7 = GetDataTable(
                             // Pass open database connection to function
@@ -1111,7 +1119,7 @@ namespace WindowsFormsApplication1
                         //inserts a new row into billing table
                         //******************************************************************************
                         string commandString5 = ("INSERT into billing SET cid = '" + txtbcid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_name = '" + txtbpjtname.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "'");//, chkd_actcost = 'T'");
-                        MySqlCommand mysqlcommand5 = new MySqlCommand(commandString5, MySqlConn);
+                        SqlCommand mysqlcommand5 = new SqlCommand(commandString5, MySqlConn);
 
                         DataTable table5 = GetDataTable(
                             // Pass open database connection to function
@@ -1122,7 +1130,7 @@ namespace WindowsFormsApplication1
 
                         string commandString6 = ("INSERT into billing_received SET jid = '" + txtbjid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pest_cost = '" + txtbpestcost.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "', chkd_actcost = 'T', bid = LAST_INSERT_ID()");
 
-                        MySqlCommand mysqlcommand6 = new MySqlCommand(commandString6, MySqlConn);
+                        SqlCommand mysqlcommand6 = new SqlCommand(commandString6, MySqlConn);
 
                         DataTable table6 = GetDataTable(
                             // Pass open database connection to function
@@ -1133,7 +1141,7 @@ namespace WindowsFormsApplication1
 
 
                         string commandString364 = ("SELECT bid FROM billing_received ORDER BY bid DESC LIMIT 1");
-                        MySqlCommand mysqlcommand364 = new MySqlCommand(commandString364, MySqlConn);
+                        SqlCommand mysqlcommand364 = new SqlCommand(commandString364, MySqlConn);
                         DataTable table364 = GetDataTable(
                             // Pass open database connection to function
                     ref MySqlConn,
@@ -1205,7 +1213,7 @@ namespace WindowsFormsApplication1
                         //inserts a new row into billing table
                         //*************************************************** this is for estimated cost**********************
                         string commandString2 = ("INSERT into billing SET cid = '" + txtbcid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_name = '" + txtbpjtname.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', paid_stmt = 'N'");
-                        MySqlCommand mysqlcommand2 = new MySqlCommand(commandString2, MySqlConn);
+                        SqlCommand mysqlcommand2 = new SqlCommand(commandString2, MySqlConn);
 
                         DataTable table2 = GetDataTable(
                             // Pass open database connection to function
@@ -1221,7 +1229,7 @@ namespace WindowsFormsApplication1
                         //**********************************************************************                        
                         string commandString1 = ("INSERT into billing_received SET jid = '" + txtbjid.Text.Trim() + "', pid = '" + txtbpid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pest_cost = '" + txtbpestcost.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "', bid = LAST_INSERT_ID()");
 
-                        MySqlCommand mysqlcommand1 = new MySqlCommand(commandString1, MySqlConn);
+                        SqlCommand mysqlcommand1 = new SqlCommand(commandString1, MySqlConn);
 
                         //string t = (string)View[15]["bid"];
                        // int t = commandString1.bid;
@@ -1289,7 +1297,7 @@ namespace WindowsFormsApplication1
 
                     //This updates the combo box with billing statements
                     string commandString22 = ("SELECT billing_num FROM billing WHERE pid = '" + txtbpid.Text.Trim() + "'");
-                    MySqlCommand mysqlcommand22 = new MySqlCommand(commandString22, MySqlConn);
+                    SqlCommand mysqlcommand22 = new SqlCommand(commandString22, MySqlConn);
 
                     DataTable table22 = GetDataTable(
                         // Pass open database connection to function
@@ -1325,7 +1333,7 @@ namespace WindowsFormsApplication1
                     //*****************************************************************************
                     string commandString3 = ("SELECT bid, project_name, project_number, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp, paid_stmt FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
-                    MySqlCommand mysqlcommand3 = new MySqlCommand(commandString3, MySqlConn);
+                    SqlCommand mysqlcommand3 = new SqlCommand(commandString3, MySqlConn);
 
                     DataTable table3 = GetDataTable(
                         // Pass open database connection to function
@@ -1370,7 +1378,7 @@ namespace WindowsFormsApplication1
                 }
 
                // }
-                catch (MySqlException ex)
+                catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -1388,14 +1396,14 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
             int y = 0;
             //Darren this is the check to see if the row was already calculated if so text box shows .. 
             //if not then the row is calculated
             string commandString100 = ("SELECT chkd_calc FROM billing WHERE bid = '" + txtbid.Text.Trim() + "'");
-            MySqlCommand mysqlcommand100 = new MySqlCommand(commandString100, MySqlConn);
+            SqlCommand mysqlcommand100 = new SqlCommand(commandString100, MySqlConn);
             DataTable table100 = GetDataTable(
                 // Pass open database connection to function
    ref MySqlConn,
@@ -1491,7 +1499,7 @@ namespace WindowsFormsApplication1
 
 
                         string commandString90 = ("SELECT chkd_actcost FROM billing WHERE bid = '" + txtbid.Text.Trim() + "'"); //+ txtbpjtnum.Text.Trim() + "'");
-                        MySqlCommand mysqlcommand90 = new MySqlCommand(commandString90, MySqlConn);
+                        SqlCommand mysqlcommand90 = new SqlCommand(commandString90, MySqlConn);
 
                         DataTable table90 = GetDataTable(
                             // Pass open database connection to function
@@ -1548,7 +1556,7 @@ namespace WindowsFormsApplication1
 
                                 string commandString76 = ("SELECT SUM(paid_amt) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
-                                MySqlCommand mysqlcommand76 = new MySqlCommand(commandString76, MySqlConn);
+                                SqlCommand mysqlcommand76 = new SqlCommand(commandString76, MySqlConn);
 
                                 DataTable table76 = GetDataTable(
                                     // Pass open database connection to function
@@ -1602,7 +1610,7 @@ namespace WindowsFormsApplication1
                             //commandString91);
 
                                 string commandString91 = ("SELECT SUM(estimator_comm), SUM(salesperson_comm), SUM(projectmgr_comm), SUM(projectasst_comm) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                                MySqlCommand mysqlcommand5 = new MySqlCommand(commandString91, MySqlConn);
+                                SqlCommand mysqlcommand5 = new SqlCommand(commandString91, MySqlConn);
 
                                 DataTable table91 = GetDataTable(
                                     // Pass open database connection to function
@@ -1656,7 +1664,7 @@ namespace WindowsFormsApplication1
                                 //Darren you made chanve 10/16
                                 //string commandString92 = ("INSERT into billing SET pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', chkd_actcost = 'T' ");
                                 string commandString92 = ("UPDATE into billing SET pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', chkd_calc = 'Y'"); //WHERE bid = '" + txtbid.Text.Trim() + "'");
-                                MySqlCommand mysqlcommand92 = new MySqlCommand(commandString92, MySqlConn);
+                                SqlCommand mysqlcommand92 = new SqlCommand(commandString92, MySqlConn);
 
                                 DataTable table92 = GetDataTable(
                                     // Pass open database connection to function
@@ -1667,7 +1675,7 @@ namespace WindowsFormsApplication1
 
                                 string commandString221 = ("UPDATE billing_received SET psale_amt = '" + txtbpsaleamt.Text.Trim() + "', pact_cost = '" + txtbpactcost.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "', chkd_actcost = 'T' WHERE bid = '" + txtbid.Text.Trim() + "'");
 
-                                MySqlCommand mysqlcommand221 = new MySqlCommand(commandString221, MySqlConn);
+                                SqlCommand mysqlcommand221 = new SqlCommand(commandString221, MySqlConn);
 
                                 DataTable table221 = GetDataTable(
                                     // Pass open database connection to function
@@ -1711,7 +1719,7 @@ namespace WindowsFormsApplication1
                                 string commandString7 = ("UPDATE billing SET chkd_actcost = 'T' WHERE bid = '" + txtbid.Text.Trim() + "'"); //+ txtbpjtnum.Text.Trim() + "'");
 
                                 //UPDATE projects SET chkd_actcost = 'T' WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                                MySqlCommand mysqlcommand7 = new MySqlCommand(commandString7, MySqlConn);
+                                SqlCommand mysqlcommand7 = new SqlCommand(commandString7, MySqlConn);
 
                                 DataTable table7 = GetDataTable(
                                     // Pass open database connection to function
@@ -1768,7 +1776,7 @@ namespace WindowsFormsApplication1
                                 //This adds the total paid amount for the project
                                 string commandString4 = ("SELECT SUM(paid_amt) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
-                                MySqlCommand mysqlcommand4 = new MySqlCommand(commandString4, MySqlConn);
+                                SqlCommand mysqlcommand4 = new SqlCommand(commandString4, MySqlConn);
 
                                 DataTable table4 = GetDataTable(
                                     // Pass open database connection to function
@@ -1831,7 +1839,7 @@ namespace WindowsFormsApplication1
 
 
                                 string commandString5 = ("SELECT SUM(estimator_comm), SUM(salesperson_comm), SUM(projectmgr_comm), SUM(projectasst_comm) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                                MySqlCommand mysqlcommand6 = new MySqlCommand(commandString5, MySqlConn);
+                                SqlCommand mysqlcommand6 = new SqlCommand(commandString5, MySqlConn);
 
                                 DataTable table5 = GetDataTable(
                                     // Pass open database connection to function
@@ -1889,7 +1897,7 @@ namespace WindowsFormsApplication1
                                 //Darren you made this update 10/16
                                 //string commandString50 = ("INSERT into billing SET pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', chkd_actcost = 'T' ");
                                 string commandString50 = ("UPDATE billing SET pid = '" + txtbpid.Text.Trim() + "', jid = '" + txtbjid.Text.Trim() + "', project_number = '" + txtbpjtnum.Text.Trim() + "', billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator = '" + cbobestperson.Text.Trim() + "', estimator_percent = '" + txtbestcomm.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson = '" + cbobsperson.Text.Trim() + "', salesperson_percent = '" + txtbspcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr = '" + cbobpm.Text.Trim() + "', projectmgr_percent = '" + txtbpgtmgrcomm.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst = '" + cbobpa.Text.Trim() + "', projectasst_percent = '" + txtbpjtpacomm.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', project_saleamt = '" + txtbpsaleamt.Text.Trim() + "', project_estcost = '" + txtbpestcost.Text.Trim() + "', project_description = '" + txtBPrjDesc.Text.Trim() + "', project_actcost = '" + txtbpactcost.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', chkd_calc = 'Y' WHERE bid = '" + txtbid.Text.Trim()+ "'"); //WHERE bid = '" + txtbid.Text.Trim() + "'"); 
-                                MySqlCommand mysqlcommand50 = new MySqlCommand(commandString50, MySqlConn);
+                                SqlCommand mysqlcommand50 = new SqlCommand(commandString50, MySqlConn);
 
                                 DataTable table50 = GetDataTable(
                                     // Pass open database connection to function
@@ -1900,7 +1908,7 @@ namespace WindowsFormsApplication1
 
                                 string commandString111 = ("UPDATE billing_received SET pact_cost = '" + txtbpactcost.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "', chkd_actcost = 'T' WHERE bid = '" + txtbid.Text.Trim() + "'");
 
-                                MySqlCommand mysqlcommand111 = new MySqlCommand(commandString111, MySqlConn);
+                                SqlCommand mysqlcommand111 = new SqlCommand(commandString111, MySqlConn);
 
                                 DataTable table111 = GetDataTable(
                                     // Pass open database connection to function
@@ -1941,7 +1949,7 @@ namespace WindowsFormsApplication1
                         //Dont forget to update the gridview
                         string commandString65 = ("SELECT bid, project_number, project_name, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
-                        MySqlCommand mysqlcommand65 = new MySqlCommand(commandString65, MySqlConn);
+                        SqlCommand mysqlcommand65 = new SqlCommand(commandString65, MySqlConn);
 
                         DataTable table65 = GetDataTable(
                             // Pass open database connection to function
@@ -2133,7 +2141,7 @@ namespace WindowsFormsApplication1
                 
                 //adding the estimator, salesperson, pm, pa, payment gp, payment estimated cost, estimated gross profit billing totals to the billing table based on bid
                 string commandString37 = ("UPDATE billing SET billing_num = '" + cbobillingnum.SelectedItem.ToString() + "', billing_amt = '" + txtbillingamt.Text.Trim() + "', billing_date = '" + mskdtxtbillingDate.Text.Trim() + "', paid_amt = '" + txtPaidAmt.Text.Trim() + "', paid_date = '" + mskdtxtpaidDate.Text.Trim() + "', estimator_comm = '" + txtbestpaidcomm.Text.Trim() + "', salesperson_comm = '" + txtbspcommpaid.Text.Trim() + "', projectmgr_comm = '" + txtbpmcommpaid.Text.Trim() + "', projectasst_comm = '" + txtbpacommpaid.Text.Trim() + "', payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', paid_stmt = 'Y', chkd_calc = 'Y' WHERE bid = '" + txtbid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand37 = new MySqlCommand(commandString37, MySqlConn);
+                SqlCommand mysqlcommand37 = new SqlCommand(commandString37, MySqlConn);
                 DataTable table37 = GetDataTable(
                     // Pass open database connection to function
             ref MySqlConn,
@@ -2143,7 +2151,7 @@ namespace WindowsFormsApplication1
               //**************************************billing received table section
                 string commandString331 = ("UPDATE billing_received SET payest_gp = '" + txtPayEstGP.Text.Trim() + "', payest_cost = '" + txtPayEstCost.Text.Trim() + "', est_gp = '" + txtbestgp.Text.Trim() + "', payact_gp = '" + txtActGP.Text.Trim() + "', pbilling_cycle = '" + cbobillingnum.SelectedItem.ToString() + "', pbilling_amt = '" + txtbillingamt.Text.Trim() + "', pbilling_date = '" + mskdtxtbillingDate.Text.Trim() + "', ppaid_amt = '" + txtPaidAmt.Text.Trim() + "', ppaid_date = '" + mskdtxtpaidDate.Text.Trim() + "' WHERE bid = '" + txtbid.Text.Trim() + "'");
 
-                MySqlCommand mysqlcommand331 = new MySqlCommand(commandString331, MySqlConn);
+                SqlCommand mysqlcommand331 = new SqlCommand(commandString331, MySqlConn);
 
                 DataTable table331 = GetDataTable(
                     // Pass open database connection to function
@@ -2154,7 +2162,7 @@ namespace WindowsFormsApplication1
 
                 //*********************************update the datagridview with the newly added totals********************************
                 string commandString19 = ("SELECT bid, project_number, project_name, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp, paid_stmt FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
-                MySqlCommand mysqlcommand19 = new MySqlCommand(commandString19, MySqlConn);
+                SqlCommand mysqlcommand19 = new SqlCommand(commandString19, MySqlConn);
                 DataTable table19 = GetDataTable(
                     // Pass open database connection to function
            ref MySqlConn,
@@ -2234,7 +2242,7 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
             //Darren add the paid totals for the project here that means every billing statement gets added as a total
@@ -2255,11 +2263,11 @@ namespace WindowsFormsApplication1
         {
                 //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
                 string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-                MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+                SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
                 string commandString62 = ("SELECT bid, project_number, billing_num, billing_amt, billing_date, paid_amt, paid_date, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm, project_saleamt, project_estcost, project_description, project_actcost, payest_gp, payest_cost, est_gp, payact_gp FROM billing WHERE billing_num = '" + cbounpbill.SelectedItem.ToString() + "' AND project_number = '" +txtbpjtnum.Text.Trim() + "'");//, AND jid = '" + txtbjid.Text + "'");
-                MySqlCommand mysqlcommand62 = new MySqlCommand(commandString62, MySqlConn);
+                SqlCommand mysqlcommand62 = new SqlCommand(commandString62, MySqlConn);
 
                 DataTable table62 = GetDataTable(
                     // Pass open database connection to function
