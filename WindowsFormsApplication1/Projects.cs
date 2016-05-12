@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using WindowsFormsApplication1;
 using System.Configuration;
 
@@ -51,23 +51,30 @@ namespace WindowsFormsApplication1
 
         BindingSource bs = new BindingSource();
         public DataTable GetDataTable(
-        ref MySql.Data.MySqlClient.MySqlConnection _SqlConnection,
-        string _SQL)
+        ref System.Data.SqlClient.SqlConnection _nSqlConnection,
+        string _nSQL)
         {
+            //new SQL Server
+            // New SQL connection to a command object
+            SqlCommand _nSqlCommand = new SqlCommand(_nSQL, _nSqlConnection);
+            SqlDataAdapter _nSqlDataAdapter = new SqlDataAdapter();
+            _nSqlDataAdapter.SelectCommand = _nSqlCommand;
+            DataTable _nDataTable = new DataTable();
+            _nDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
             // Pass the connection to a command object
-            MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
-                            new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
-            MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
-                            = new MySql.Data.MySqlClient.MySqlDataAdapter();
-            _SqlDataAdapter.SelectCommand = _SqlCommand;
+            //MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
+            //                new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
+            //MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
+            //                = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            //_SqlDataAdapter.SelectCommand = _SqlCommand;
 
-            DataTable _DataTable = new DataTable();
-            _DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            //DataTable _DataTable = new DataTable();
+            //_DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
             // Adds or refreshes rows in the DataSet to match those in the data source
             try
             {
-                _SqlDataAdapter.Fill(_DataTable);
+                _nSqlDataAdapter.Fill(_nDataTable);
             }
             catch (Exception _Exception)
             {
@@ -78,7 +85,7 @@ namespace WindowsFormsApplication1
                 return null;
             }
 
-            return _DataTable;
+            return _nDataTable;
         }
 
 
@@ -95,18 +102,18 @@ namespace WindowsFormsApplication1
 
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection SqlConn = new SqlConnection(connectionString);
 
-            MySqlConn.Open();
+            SqlConn.Open();
 
 
             //**************************************THis command populates the estimator drop down
             string commandString31 = ("SELECT ALL psname FROM projectstaff");
-            MySqlCommand mysqlcommand = new MySqlCommand(commandString31, MySqlConn);
+            SqlCommand mysqlcommand = new SqlCommand(commandString31, SqlConn);
 
             DataTable table = GetDataTable(
                 // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
         commandString31);
             // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -138,11 +145,11 @@ namespace WindowsFormsApplication1
 
         //    //*******************************************************This command populates the salesperson drop down box
             string commandString32 = ("SELECT ALL psname FROM projectstaff");
-            MySqlCommand mysqlcommand32 = new MySqlCommand(commandString32, MySqlConn);
+            SqlCommand mysqlcommand32 = new SqlCommand(commandString32, SqlConn);
 
             DataTable table32 = GetDataTable(
                 // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
         commandString32);
             // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -173,11 +180,11 @@ namespace WindowsFormsApplication1
 
         //    //***********************************************************This command populates the project manager drop down box
             string commandString33 = ("SELECT ALL psname FROM projectstaff");
-            MySqlCommand mysqlcommand33 = new MySqlCommand(commandString33, MySqlConn);
+            SqlCommand mysqlcommand33 = new SqlCommand(commandString33, SqlConn);
 
             DataTable table33 = GetDataTable(
                 // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
         commandString33);
             // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -208,11 +215,11 @@ namespace WindowsFormsApplication1
 
         //    //***************************************************This command populates the project assistant screen
             string commandString34 = ("SELECT ALL psname FROM projectstaff");
-            MySqlCommand mysqlcommand34 = new MySqlCommand(commandString34, MySqlConn);
+            SqlCommand mysqlcommand34 = new SqlCommand(commandString34, SqlConn);
 
             DataTable table34 = GetDataTable(
                 // Pass open database connection to function
-        ref MySqlConn,
+        ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
         commandString34);
             // TODO: This line of code loads data into the 'commissionrepoDataSet1.company' table. You can move, or remove it, as needed.
@@ -259,10 +266,10 @@ namespace WindowsFormsApplication1
             //MySqlConnection MySqlConn = new MySqlConnection(connectionString);
 
             string commandString4 = ("SELECT pid, jid, project_number, project_name, sale_amount, estimated_cost, estimator, estimator_commission_percentage, salesperson, salesperson_commission_percentage, projectmgr, projectmgr_commission_percentage, projectasst, projectasst_commission_percentage, description FROM projects WHERE jid = '" + txtpjid.Text.Trim() + "'");
-            MySqlCommand mysqlcommand4 = new MySqlCommand(commandString4, MySqlConn);
+            SqlCommand mysqlcommand4 = new SqlCommand(commandString4, SqlConn);
             DataTable table3 = GetDataTable(
                 // Pass open database connection to function
-   ref MySqlConn,
+   ref SqlConn,
                 // Pass SQL statement to create SqlDataReader
    commandString4);
 
@@ -525,7 +532,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
             //decimal checkNum = 0;
 
             if (txtpjtnum.Text == string.Empty)
@@ -651,7 +658,7 @@ namespace WindowsFormsApplication1
                     //token15 = txtestcost.Text.Trim();
                     token16 = txtPrjDesc.Text.Trim();
 
-                    MySqlCommand mysqlcommand6 = new MySqlCommand(commandString6, MySqlConn);
+                    SqlCommand mysqlcommand6 = new SqlCommand(commandString6, MySqlConn);
                     DataTable table6 = GetDataTable(
                         // Pass open database connection to function
             ref MySqlConn,
@@ -663,7 +670,7 @@ namespace WindowsFormsApplication1
 
                     //inserts into the billing table               
                     string commandString8 = ("INSERT into billing SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percent = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percent = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_percent = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_percent = '" + txtprjasstcomm.Text.Trim() + "', project_saleamt = '" + txtsaleamt.Text.Trim() + "', project_estcost = '" + txtestcost.Text.Trim() + "', project_description = '" + txtPrjDesc.Text.Trim() + "', paid_stmt = 'N', pid = LAST_INSERT_ID() ");
-                    MySqlCommand mysqlcommand8 = new MySqlCommand(commandString8, MySqlConn);
+                    SqlCommand mysqlcommand8 = new SqlCommand(commandString8, MySqlConn);
 
                     DataTable table8 = GetDataTable(
                         // Pass open database connection to function
@@ -701,7 +708,7 @@ namespace WindowsFormsApplication1
 
                     //Darren this inserts data for comm job type
                     string commandString66 = ("INSERT into comm_job_type SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', bid = LAST_INSERT_ID(), project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', name_1 = '" + cbopjsestr.Text.Trim() + "', jtype_1 = 'Estimator', name_2 = '" + cbopjssp.Text.Trim() + "', jtype_2 = 'Salesperson', name_3 = '" + cboprjpm.Text.Trim() + "', jtype_3 = 'ProjectManager', name_4 = '" + cbopjpa.Text.Trim() + "', jtype_4 = 'ProjectAssistant'");
-                    MySqlCommand mysqlcommand66 = new MySqlCommand(commandString66, MySqlConn);
+                    SqlCommand mysqlcommand66 = new SqlCommand(commandString66, MySqlConn);
                     DataTable table66 = GetDataTable(
                         // Pass open database connection to function
            ref MySqlConn,
@@ -711,7 +718,7 @@ namespace WindowsFormsApplication1
 
                     //this command updates the grid view on the project sreen
                     string commandString11 = ("SELECT pid, jid, project_number, project_name, sale_amount, estimated_cost, actual_cost, estimator, estimator_commission_percentage, salesperson, salesperson_commission_percentage, projectmgr, projectmgr_commission_percentage, projectasst, projectasst_commission_percentage, description FROM projects WHERE jid = '" + txtpjid.Text.Trim() + "'");
-                    MySqlCommand mysqlcommand11 = new MySqlCommand(commandString11, MySqlConn);
+                    SqlCommand mysqlcommand11 = new SqlCommand(commandString11, MySqlConn);
                     DataTable table3 = GetDataTable(
                         // Pass open database connection to function
            ref MySqlConn,
@@ -756,7 +763,7 @@ namespace WindowsFormsApplication1
 
 
                 }
-                catch (MySqlException ex)
+                catch (SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -769,7 +776,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
 
             String r = txtsaleamt.Text.Trim();
@@ -791,7 +798,7 @@ namespace WindowsFormsApplication1
 
             //updates the billing table               
             string commandString8 = ("UPDATE billing SET project_name = '" + txtPrjtName.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percent = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percent = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_percent = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_percent = '" + txtprjasstcomm.Text.Trim() + "', project_saleamt = '" + txtsaleamt.Text.Trim() + "', project_estcost = '" + txtestcost.Text.Trim() + "', project_description = '" + txtPrjDesc.Text.Trim() + "' WHERE pid = '" + txtprjpid.Text.Trim() + "'");
-            MySqlCommand mysqlcommand8 = new MySqlCommand(commandString8, MySqlConn);
+            SqlCommand mysqlcommand8 = new SqlCommand(commandString8, MySqlConn);
 
             DataTable table8 = GetDataTable(
                 // Pass open database connection to function
@@ -811,7 +818,7 @@ namespace WindowsFormsApplication1
 
             //Darren this updates data for comm job type
             string commandString266 = ("UPDATE comm_job_type SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', pid = '" + txtprjpid.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', name_1 = '" + cbopjsestr.Text.Trim() + "', jtype_1 = 'Estimator', name_2 = '" + cbopjssp.Text.Trim() + "', jtype_2 = 'Salesperson', name_3 = '" + cboprjpm.Text.Trim() + "', jtype_3 = 'ProjectManager', name_4 = '" + cbopjpa.Text.Trim() + "', jtype_4 = 'ProjectAssistant' WHERE project_number = '" + txtpjtnum.Text.Trim() + "'");
-            MySqlCommand mysqlcommand266 = new MySqlCommand(commandString266, MySqlConn);
+            SqlCommand mysqlcommand266 = new SqlCommand(commandString266, MySqlConn);
             DataTable table266 = GetDataTable(
                 // Pass open database connection to function
    ref MySqlConn,
@@ -873,7 +880,7 @@ namespace WindowsFormsApplication1
         {
             //string connectionString = "Data Source=localhost" + "; Database=commissionrepo" + "; User ID=root" + "; Password=141210;";
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             try
             {
@@ -930,7 +937,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
