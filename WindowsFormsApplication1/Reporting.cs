@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+//using MySql.Data.MySqlClient;
 //using Excel = Microsoft.Office.Interop.Excel;
 using System.Globalization;
 using CrystalDecisions.Shared;
@@ -28,25 +29,34 @@ namespace WindowsFormsApplication1
 
         BindingSource bs = new BindingSource();
         public DataTable GetDataTable(
-        ref MySql.Data.MySqlClient.MySqlConnection _SqlConnection,
-        string _SQL)
+         ref System.Data.SqlClient.SqlConnection _nSqlConnection, string _nSQL)
         {
-            // Pass the connection to a command object
-            MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
-                            new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
-            MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
-                            = new MySql.Data.MySqlClient.MySqlDataAdapter();
-            _SqlDataAdapter.SelectCommand = _SqlCommand;
+
+            // New SQL connection to a command object
+            SqlCommand _nSqlCommand = new SqlCommand(_nSQL, _nSqlConnection);
+            SqlDataAdapter _nSqlDataAdapter = new SqlDataAdapter();
+            _nSqlDataAdapter.SelectCommand = _nSqlCommand;
 
             DataTable _DataTable = new DataTable();
             _DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
             DataSet ovrRpt = new DataSet();
             ovrRpt.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            // Pass the connection to a command object
+            //MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
+            //                new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
+            //MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
+            //                = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            //_SqlDataAdapter.SelectCommand = _SqlCommand;
+
+            //DataTable _DataTable = new DataTable();
+            //_DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            //DataSet ovrRpt = new DataSet();
+            //ovrRpt.Locale = System.Globalization.CultureInfo.InvariantCulture;
             // Adds or refreshes rows in the DataSet to match those in the data source
             try
             {
-                _SqlDataAdapter.Fill(_DataTable);
-                _SqlDataAdapter.Fill(ovrRpt);
+                _nSqlDataAdapter.Fill(_DataTable);
+                _nSqlDataAdapter.Fill(ovrRpt);
             }
             catch (Exception _Exception)
             {
@@ -63,15 +73,20 @@ namespace WindowsFormsApplication1
 
         //new DataSet code
         public DataSet GetDataSet(
-        ref MySql.Data.MySqlClient.MySqlConnection _SqlConnection,
-        string _SQL)
+        ref System.Data.SqlClient.SqlConnection _nSqlConnection, string _nSQL)
         {
+
+            SqlCommand _nSqlCommand = new SqlCommand(_nSQL, _nSqlConnection);
+            SqlDataAdapter _nSqlDataAdapter = new SqlDataAdapter();
+            _nSqlDataAdapter.SelectCommand = _nSqlCommand;
+            DataTable _nDataTable = new DataTable();
+            _nDataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
             // Pass the connection to a command object
-            MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
-                            new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
-            MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
-                            = new MySql.Data.MySqlClient.MySqlDataAdapter();
-            _SqlDataAdapter.SelectCommand = _SqlCommand;
+            //MySql.Data.MySqlClient.MySqlCommand _SqlCommand =
+            //                new MySql.Data.MySqlClient.MySqlCommand(_SQL, _SqlConnection);
+            //MySql.Data.MySqlClient.MySqlDataAdapter _SqlDataAdapter
+            //                = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            //_SqlDataAdapter.SelectCommand = _SqlCommand;
 
             //DataTable _DataTable = new DataTable();
             //_DataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
@@ -81,7 +96,7 @@ namespace WindowsFormsApplication1
             try
             {
                 //_SqlDataAdapter.Fill(_DataTable);
-                _SqlDataAdapter.Fill(ovrRpt);
+                _nSqlDataAdapter.Fill(ovrRpt);
             }
             catch (Exception _Exception)
             {
@@ -110,7 +125,7 @@ namespace WindowsFormsApplication1
             List<Object> objRemove = new List<object>();
            
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             try
             {
@@ -119,7 +134,7 @@ namespace WindowsFormsApplication1
                 //**************************************THis command populates projectstaff combo box with estimators 
                 string commandString102 = ("SELECT ALL psname FROM projectstaff");
                 //estimator, salesperson, projectmgr, projectasst
-                MySqlCommand mysqlcommand102 = new MySqlCommand(commandString102, MySqlConn);
+                SqlCommand mysqlcommand102 = new SqlCommand(commandString102, MySqlConn);
 
                 DataTable table102 = GetDataTable(
                     // Pass open database connection to function
@@ -146,7 +161,7 @@ namespace WindowsFormsApplication1
 
 
                 String commandString222 = ("SELECT ALL company_name FROM company");
-                MySqlCommand mysqlcommand222 = new MySqlCommand(commandString222, MySqlConn);
+                SqlCommand mysqlcommand222 = new SqlCommand(commandString222, MySqlConn);
 
                 DataTable table222 = GetDataTable(
                     // Pass open database connection to function
@@ -172,7 +187,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -188,7 +203,7 @@ namespace WindowsFormsApplication1
             //DataSet ovrRpt;
            
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
             MySqlConn.Open();
             
             //Start Conversion
@@ -226,7 +241,7 @@ namespace WindowsFormsApplication1
 
 
             
-            MySqlDataAdapter adap = new MySqlDataAdapter("SELECT billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.cid, billing.jid, billing.pid, billing.chkd_actcost, billing.payest_gp, billing.payact_gp, billing.estimator, billing.estimator_percent, billing.estimator_comm, billing.salesperson, billing.salesperson_percent, billing.salesperson_comm, billing.projectmgr, billing.projectmgr_percent, billing.projectmgr_comm, billing.projectasst, billing.projectasst_percent, billing.projectasst_comm, company.company_name, job.job_name, projects.project_number, projects.project_name FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN projects ON billing.pid = projects.pid WHERE billing.paid_date >= '" + ovalcomrStartDt.Text.Trim() + "' AND billing.paid_date <= '" + ovalcomrEndDt.Text.Trim() + "'", MySqlConn);
+            SqlDataAdapter adap = new SqlDataAdapter("SELECT billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.cid, billing.jid, billing.pid, billing.chkd_actcost, billing.payest_gp, billing.payact_gp, billing.estimator, billing.estimator_percent, billing.estimator_comm, billing.salesperson, billing.salesperson_percent, billing.salesperson_comm, billing.projectmgr, billing.projectmgr_percent, billing.projectmgr_comm, billing.projectasst, billing.projectasst_percent, billing.projectasst_comm, company.company_name, job.job_name, projects.project_number, projects.project_name FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN projects ON billing.pid = projects.pid WHERE billing.paid_date >= '" + ovalcomrStartDt.Text.Trim() + "' AND billing.paid_date <= '" + ovalcomrEndDt.Text.Trim() + "'", MySqlConn);
             DataSet dsOvrRpt = new DataSet("DataTable1");
             adap.Fill(dsOvrRpt, "DataTable1");
             MySqlConn.Close();
@@ -802,7 +817,7 @@ namespace WindowsFormsApplication1
             table110.Columns.Add(new DataColumn("dategen"));
             
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
             MySqlConn.Open();
             
 
@@ -832,7 +847,7 @@ namespace WindowsFormsApplication1
             invrEdDt.Text = NewEndDate2.ToString("yyyy-MM-dd");
 
 
-            MySqlDataAdapter adap2 = new MySqlDataAdapter("SELECT billing.billing_date, billing.billing_amt, billing.cid, billing.jid, billing.project_name, billing.project_number, billing.estimator, billing.salesperson, billing.projectmgr, billing.projectasst, company.company_name, job.job_name FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid WHERE billing.billing_date >= '" + invrStDt.Text.Trim() + "' AND billing.billing_date <= '" + invrEdDt.Text.Trim() + "'", MySqlConn);
+            SqlDataAdapter adap2 = new SqlDataAdapter("SELECT billing.billing_date, billing.billing_amt, billing.cid, billing.jid, billing.project_name, billing.project_number, billing.estimator, billing.salesperson, billing.projectmgr, billing.projectasst, company.company_name, job.job_name FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid WHERE billing.billing_date >= '" + invrStDt.Text.Trim() + "' AND billing.billing_date <= '" + invrEdDt.Text.Trim() + "'", MySqlConn);
             DataSet dsInvRpt = new DataSet("DataTable2");
             adap2.Fill(dsInvRpt, "DataTable2");
             MySqlConn.Close();
@@ -1153,7 +1168,7 @@ namespace WindowsFormsApplication1
 
             //object[] tr  = new object[32];;
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
             MySqlConn.Open();
 
             //Start Conversion
@@ -1179,7 +1194,7 @@ namespace WindowsFormsApplication1
             String indvName = cboindcomm.Text.Trim();
 
 
-            MySqlDataAdapter adap3 = new MySqlDataAdapter("SELECT ALL billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.project_name, billing.project_number, billing.cid, billing.jid, billing.chkd_actcost, billing.estimator_percent, billing.estimator_comm, billing.salesperson_percent, billing.salesperson_comm, billing.projectmgr_percent, billing.projectmgr_comm, billing.projectasst_percent, billing.projectasst_comm, billing.payest_gp, billing.payact_gp, company.company_name, job.job_name, comm_job_type.bid, comm_job_type.project_number, comm_job_type.project_name, comm_job_type.name_1, comm_job_type.jtype_1, comm_job_type.name_2, comm_job_type.jtype_2, comm_job_type.name_3, comm_job_type.jtype_3, comm_job_type.name_4, comm_job_type.jtype_4 FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN comm_job_type ON billing.project_number = comm_job_type.project_number WHERE billing.paid_date >= '" + indvStDt.Text.Trim() + "' AND billing.paid_date <= '" + indvEnDt.Text.Trim() + "'", MySqlConn);
+            SqlDataAdapter adap3 = new SqlDataAdapter("SELECT ALL billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.project_name, billing.project_number, billing.cid, billing.jid, billing.chkd_actcost, billing.estimator_percent, billing.estimator_comm, billing.salesperson_percent, billing.salesperson_comm, billing.projectmgr_percent, billing.projectmgr_comm, billing.projectasst_percent, billing.projectasst_comm, billing.payest_gp, billing.payact_gp, company.company_name, job.job_name, comm_job_type.bid, comm_job_type.project_number, comm_job_type.project_name, comm_job_type.name_1, comm_job_type.jtype_1, comm_job_type.name_2, comm_job_type.jtype_2, comm_job_type.name_3, comm_job_type.jtype_3, comm_job_type.name_4, comm_job_type.jtype_4 FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN comm_job_type ON billing.project_number = comm_job_type.project_number WHERE billing.paid_date >= '" + indvStDt.Text.Trim() + "' AND billing.paid_date <= '" + indvEnDt.Text.Trim() + "'", MySqlConn);
             
             
             DataSet dsOvrRpt2 = new DataSet("DataTable3");
@@ -2266,13 +2281,13 @@ namespace WindowsFormsApplication1
         {
             List<DataRow> jnameRowsRemove = new List<DataRow>();
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             try
             {
 
                 string commandString108 = ("SELECT cid FROM company WHERE company_name = '" + cboJRCBut.Text.ToString() + "'");
-                MySqlCommand mysqlcommand108 = new MySqlCommand(commandString108, MySqlConn);
+                SqlCommand mysqlcommand108 = new SqlCommand(commandString108, MySqlConn);
 
                         DataTable table108 = GetDataTable(
                             // Pass open database connection to function
@@ -2288,7 +2303,7 @@ namespace WindowsFormsApplication1
 
 
                 string commandString109 = ("SELECT ALL job_name FROM job WHERE cid = '" + txtrcid.Text.Trim() + "'");
-                MySqlCommand mysqlcommand109 = new MySqlCommand(commandString108, MySqlConn);
+                SqlCommand mysqlcommand109 = new SqlCommand(commandString108, MySqlConn);
 
                 DataTable table109 = GetDataTable(
                     // Pass open database connection to function
@@ -2328,7 +2343,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -2343,13 +2358,13 @@ namespace WindowsFormsApplication1
 
 
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
 
             try
             {
 
                 string commandString110 = ("SELECT jid FROM job WHERE job_name = '" + cboJN.Text.ToString() + "'");
-                MySqlCommand mysqlcommand110 = new MySqlCommand(commandString110, MySqlConn);
+                SqlCommand mysqlcommand110 = new SqlCommand(commandString110, MySqlConn);
 
                 DataTable table110 = GetDataTable(
                     // Pass open database connection to function
@@ -2363,7 +2378,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -2408,7 +2423,7 @@ namespace WindowsFormsApplication1
             table104.Columns.Add(new DataColumn("total_paidAmt"));
 
             string connectionString = ConfigurationManager.ConnectionStrings["CommDB"].ConnectionString;
-            MySqlConnection MySqlConn = new MySqlConnection(connectionString);
+            SqlConnection MySqlConn = new SqlConnection(connectionString);
             MySqlConn.Open();
 
             //Date Gen
@@ -2437,7 +2452,7 @@ namespace WindowsFormsApplication1
                 /////////////////////////////////
                 //This is for the crystal report
 
-                MySqlDataAdapter adap4 = new MySqlDataAdapter("SELECT project_number, project_name, billing_amt, paid_amt, chkd_actcost, project_actcost, est_gp, payact_gp, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm FROM billing WHERE jid = '" + txtrjid.Text + "'", MySqlConn);
+                SqlDataAdapter adap4 = new SqlDataAdapter("SELECT project_number, project_name, billing_amt, paid_amt, chkd_actcost, project_actcost, est_gp, payact_gp, estimator, estimator_percent, estimator_comm, salesperson, salesperson_percent, salesperson_comm, projectmgr, projectmgr_percent, projectmgr_comm, projectasst, projectasst_percent, projectasst_comm FROM billing WHERE jid = '" + txtrjid.Text + "'", MySqlConn);
                 DataSet dsJobRpt = new DataSet("DataTable4");
                 adap4.Fill(dsJobRpt, "DataTable4");
                 MySqlConn.Close();
@@ -2797,7 +2812,7 @@ namespace WindowsFormsApplication1
 
 
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
