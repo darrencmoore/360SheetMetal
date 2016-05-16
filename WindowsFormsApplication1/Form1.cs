@@ -95,9 +95,11 @@ namespace WindowsFormsApplication1
 
                 try
                 {
-                    sqlConn.Open();                   
+                    sqlConn.Open();
                     //company insert query
-                    string commandString7 = ("INSERT into company SET company_name = '" + txtcname.Text.Trim() + "', address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.Text.Trim() + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "'");
+                    //string commandString7 = ("INSERT into company SET company_name = '" + txtcname.Text.Trim() + "', address = '" + txtAddr.Text.Trim() + "', state = '" + stateComboBox.Text.Trim() + "', phone_number = '" + mskedtxtphone.Text.Trim() + "', contact_person = '" + txtcontact.Text.Trim() + "', city = '" + txtcompcity.Text.Trim() + "', zip = '" + txtcompzip.Text.Trim() + "'");
+                    //UPDATED for SQL SERVER insert
+                    string commandString7 = "INSERT INTO company (company_name, address, state, phone_number, contact_person, city, zip) VALUES ('" + txtcname.Text.Trim() + "', '" + txtAddr.Text.Trim() + "', '" + stateComboBox.Text.Trim() + "', '" + mskedtxtphone.Text.Trim() + "', '" + txtcontact.Text.Trim() + "', '" + txtcompcity.Text.Trim() + "', '" + txtcompzip.Text.Trim() + "');";
                     SqlCommand sqlcommand = new SqlCommand(commandString7, sqlConn);                   
                     DataTable table = GetDataTable(
                         // Pass open database connection to function
@@ -361,13 +363,14 @@ namespace WindowsFormsApplication1
                     String u = r.Replace("'", "");
                     txtjobname.Text = u;
 
-                       
+
 
                     //string commandString6 = ("INSERT into job SET cid = '" + txtjcid.Text + "', company_name = '" + txtjcname.Text.Trim() + "', sale_price = '" + txtsp.Text + "', " + "esitmated_percentage = '" + txtesp.Text + "', actual_cost = '" + txtac.Text + "', gross_profit = '" + txtgp.Text + "', estimator_percentage = '" + txtestpercent.Text + "', sales_percentage = '" + txtsalespercent.Text + "', pm_percentage = '" + txtpmpercent.Text + "', current_billing = '" + txtcb.Text + "', prog_billing_one = '" + txtpb1.Text + "', prog_billing_one_total = '" + txtpb1total.Text + "', prog_billing_two = '" + txtpb2.Text + "', prog_billing_two_total = '" + txtpb2total.Text + "', prog_billing_three = '" + txtpb3.Text + "', prog_billing_four = '" + txtpb4.Text + "', prog_billing_four_total = '" + txtpb4total.Text + "', final_billing = '" + txtfb.Text + "', final_billing_total = '" + txtfbtotal.Text + "', jtype = '" + txtjtype.Text + "'");
 
-                    string commandString6 = ("INSERT into job SET cid = '" + txtjcid.Text + "', job_name = '" + txtjobname.Text.Trim() + "', job_address = '" + txtjobaddr.Text.Trim() + "', job_city = '" + txtjobcity.Text.Trim() + "', job_state = '" + cbojobstate.Text.Trim() + "', job_zip = '" + txtjobzip.Text.Trim() + "'");
-
-
+                    //string commandString6 = ("INSERT INTO job SET cid = '" + txtjcid.Text + "', job_name = '" + txtjobname.Text.Trim() + "', job_address = '" + txtjobaddr.Text.Trim() + "', job_city = '" + txtjobcity.Text.Trim() + "', job_state = '" + cbojobstate.Text.Trim() + "', job_zip = '" + txtjobzip.Text.Trim() + "'");
+                    // Changed for SQL SERVER insert
+                    string commandString6 = "INSERT INTO job (cid, job_name, job_address, job_city, job_state, job_zip) VALUES ('" + txtjcid.Text.ToString() + "', '" + txtjobname.Text.Trim().ToString() + "', '" + txtjobaddr.Text.Trim().ToString() + "', '" + txtjobcity.Text.Trim().ToString() + "', '" + cbojobstate.Text.Trim().ToString() + "', '" + txtjobzip.Text.Trim().ToString() + "');";
+                    
                     SqlCommand mysqlcommand = new SqlCommand(commandString6, MySqlConn);
 
                     companyTableAdapter getcomp = new companyDSTableAdapters.companyTableAdapter();
@@ -763,7 +766,9 @@ namespace WindowsFormsApplication1
 
 
 
-                string commandString44 = ("INSERT into projectstaff SET psname = '" + txtpjsest.Text.Trim() + "'");//, salesperson = '" + txtpjssp.Text.Trim() + "', projectmgr = '" + txtpjspm.Text.Trim() + "', projectasst = '" + txtpjspa.Text.Trim() + "'");
+                //string commandString44 = ("INSERT into projectstaff SET psname = '" + txtpjsest.Text.Trim() + "'");//, salesperson = '" + txtpjssp.Text.Trim() + "', projectmgr = '" + txtpjspm.Text.Trim() + "', projectasst = '" + txtpjspa.Text.Trim() + "'");
+                //Updated for SQL SERVER insert
+                string commandString44 = "INSERT INTO prjectstaff (psname) VALUES ('" + txtpjsest.Text.Trim() + "');";
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
         ref MySqlConn,
