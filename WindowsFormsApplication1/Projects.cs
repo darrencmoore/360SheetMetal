@@ -653,7 +653,8 @@ namespace WindowsFormsApplication1
                     
 
 
-                    string commandString6 = ("INSERT into projects SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', sale_amount = '" + txtsaleamt.Text.Trim() + "', estimated_cost = '" + txtestcost.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_commission_percentage = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_commission_percentage = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_commission_percentage = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_commission_percentage = '" + txtprjasstcomm.Text.Trim() + "', description = '" + txtPrjDesc.Text.Trim() + "'");
+                    //string commandString6 = ("INSERT into projects SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', sale_amount = '" + txtsaleamt.Text.Trim() + "', estimated_cost = '" + txtestcost.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_commission_percentage = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_commission_percentage = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_commission_percentage = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_commission_percentage = '" + txtprjasstcomm.Text.Trim() + "', description = '" + txtPrjDesc.Text.Trim() + "'");
+                    string commandString6 = "INSERT INTO projects (cid, jid, project_number, project_name, sale_amount, estimated_cost, estimator, estimator_commission_percentage, salesperson, salesperson_commission_percentage, projectmgr, projectmgr_commission_percentage, projectasst, projectasst_commission_percentage, description) VALUES ('" + txtccid.Text.Trim() + "', '" + txtpjid.Text.Trim() + "', '" + txtpjtnum.Text.Trim() + "', '" + txtPrjtName.Text.Trim() + "', '" + txtsaleamt.Text.Trim() + "', '" + txtestcost.Text.Trim() + "', '" + cbopjsestr.SelectedItem.ToString() + "', '" + txtestcommpert.Text.Trim() + "', '" + cbopjssp.SelectedItem.ToString() + "', '" + txtspcommpert.Text.Trim() + "', '" + cboprjpm.SelectedItem.ToString() + "', '" + txtprjmgrcomm.Text.Trim() + "', '" + cbopjpa.SelectedItem.ToString() + "', '" + txtprjasstcomm.Text.Trim() + "', '" + txtPrjDesc.Text.Trim() + "');";   
                     //token14 = txtsaleamt.Text.Trim();
                     //token15 = txtestcost.Text.Trim();
                     token16 = txtPrjDesc.Text.Trim();
@@ -669,7 +670,9 @@ namespace WindowsFormsApplication1
 
 
                     //inserts into the billing table               
-                    string commandString8 = ("INSERT into billing SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percent = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percent = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_percent = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_percent = '" + txtprjasstcomm.Text.Trim() + "', project_saleamt = '" + txtsaleamt.Text.Trim() + "', project_estcost = '" + txtestcost.Text.Trim() + "', project_description = '" + txtPrjDesc.Text.Trim() + "', paid_stmt = 'N', pid = LAST_INSERT_ID() ");
+                    //string commandString8 = ("INSERT into billing SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percent = '" + txtestcommpert.Text.Trim() + "', salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percent = '" + txtspcommpert.Text.Trim() + "', projectmgr = '" + cboprjpm.SelectedItem.ToString() + "', projectmgr_percent = '" + txtprjmgrcomm.Text.Trim() + "', projectasst = '" + cbopjpa.SelectedItem.ToString() + "', projectasst_percent = '" + txtprjasstcomm.Text.Trim() + "', project_saleamt = '" + txtsaleamt.Text.Trim() + "', project_estcost = '" + txtestcost.Text.Trim() + "', project_description = '" + txtPrjDesc.Text.Trim() + "', paid_stmt = 'N', pid = LAST_INSERT_ID() ");
+                    // UPDATED for SQL SERVER insert
+                    string commandString8 = "INSERT INTO billing (cid, jid, project_number, project_name, estimator, estimator_percent, salesperson, salesperson_percent, projectmgr, projectmgr_percent, projectasst, projectasst_percent, project_saleamt, project_estcost, project_description, paid_stmt, pid) VALUES ('" + txtccid.Text.Trim() + "', '" + txtpjid.Text.Trim() + "', '" + txtpjtnum.Text.Trim() + "', '" + txtPrjtName.Text.Trim() + "', '" + cbopjsestr.SelectedItem.ToString() + "', '" + txtestcommpert.Text.Trim() + "', '" + cbopjssp.SelectedItem.ToString() + "', '" + txtspcommpert.Text.Trim() + "', '" + cboprjpm.SelectedItem.ToString() + "', '" + txtprjmgrcomm.Text.Trim() + "', '" + cbopjpa.SelectedItem.ToString() + "', '" + txtprjasstcomm.Text.Trim() + "', '" + txtsaleamt.Text.Trim() + "', '" + txtestcost.Text.Trim() + "', '" + txtPrjDesc.Text.Trim() + "', 'N', LAST_INSERT_ID());";
                     SqlCommand mysqlcommand8 = new SqlCommand(commandString8, MySqlConn);
 
                     DataTable table8 = GetDataTable(
@@ -679,23 +682,23 @@ namespace WindowsFormsApplication1
             commandString8);
 
 
-            //        //This inserts new assigned project staff row with bid
-            //        string commandString7 = ("INSERT into assignedps SET project_number = '" + txtpjtnum.Text.Trim() + "', assigned_estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percentage = '" + txtestcommpert.Text.Trim() + "', assigned_salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percentage = '" + txtspcommpert.Text.Trim() + "', assigned_pm = '" + cboprjpm.SelectedItem.ToString() + "', pm_percentage = '" + txtprjmgrcomm.Text.Trim() + "', assigned_pa = '" + cbopjpa.SelectedItem.ToString() + "', pa_percentage = '" + txtprjasstcomm.Text.Trim() + "', prj_saleamt = '" + txtsaleamt.Text.Trim() + "', prj_estcost = '" + txtestcost.Text.Trim() + "', apbid = LAST_INSERT_ID() ");
-            //        MySqlCommand mysqlcommand7 = new MySqlCommand(commandString7, MySqlConn);
-            //        DataTable table7 = GetDataTable(
-            //            // Pass open database connection to function
-            //ref MySqlConn,
-            //            // Pass SQL statement to create SqlDataReader
-            //commandString7);
+                    //        //This inserts new assigned project staff row with bid
+                    //        string commandString7 = ("INSERT into assignedps SET project_number = '" + txtpjtnum.Text.Trim() + "', assigned_estimator = '" + cbopjsestr.SelectedItem.ToString() + "', estimator_percentage = '" + txtestcommpert.Text.Trim() + "', assigned_salesperson = '" + cbopjssp.SelectedItem.ToString() + "', salesperson_percentage = '" + txtspcommpert.Text.Trim() + "', assigned_pm = '" + cboprjpm.SelectedItem.ToString() + "', pm_percentage = '" + txtprjmgrcomm.Text.Trim() + "', assigned_pa = '" + cbopjpa.SelectedItem.ToString() + "', pa_percentage = '" + txtprjasstcomm.Text.Trim() + "', prj_saleamt = '" + txtsaleamt.Text.Trim() + "', prj_estcost = '" + txtestcost.Text.Trim() + "', apbid = LAST_INSERT_ID() ");
+                    //        MySqlCommand mysqlcommand7 = new MySqlCommand(commandString7, MySqlConn);
+                    //        DataTable table7 = GetDataTable(
+                    //            // Pass open database connection to function
+                    //ref MySqlConn,
+                    //            // Pass SQL statement to create SqlDataReader
+                    //commandString7);
 
 
-                //    string commandString364 = ("SELECT apbid FROM assignedps ORDER BY apbid DESC LIMIT 1");
-                //    MySqlCommand mysqlcommand364 = new MySqlCommand(commandString364, MySqlConn);
-                //    DataTable table364 = GetDataTable(
-                //        // Pass open database connection to function
-                //ref MySqlConn,
-                //        // Pass SQL statement to create SqlDataReader
-                //commandString364);
+                    //    string commandString364 = ("SELECT apbid FROM assignedps ORDER BY apbid DESC LIMIT 1");
+                    //    MySqlCommand mysqlcommand364 = new MySqlCommand(commandString364, MySqlConn);
+                    //    DataTable table364 = GetDataTable(
+                    //        // Pass open database connection to function
+                    //ref MySqlConn,
+                    //        // Pass SQL statement to create SqlDataReader
+                    //commandString364);
 
                     //foreach (DataRow row in table364.Rows)
                     //{
@@ -707,7 +710,9 @@ namespace WindowsFormsApplication1
                     //}
 
                     //Darren this inserts data for comm job type
-                    string commandString66 = ("INSERT into comm_job_type SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', bid = LAST_INSERT_ID(), project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', name_1 = '" + cbopjsestr.Text.Trim() + "', jtype_1 = 'Estimator', name_2 = '" + cbopjssp.Text.Trim() + "', jtype_2 = 'Salesperson', name_3 = '" + cboprjpm.Text.Trim() + "', jtype_3 = 'ProjectManager', name_4 = '" + cbopjpa.Text.Trim() + "', jtype_4 = 'ProjectAssistant'");
+                    //string commandString66 = ("INSERT into comm_job_type SET cid = '" + txtccid.Text.Trim() + "', jid = '" + txtpjid.Text.Trim() + "', bid = LAST_INSERT_ID(), project_number = '" + txtpjtnum.Text.Trim() + "', project_name = '" + txtPrjtName.Text.Trim() + "', name_1 = '" + cbopjsestr.Text.Trim() + "', jtype_1 = 'Estimator', name_2 = '" + cbopjssp.Text.Trim() + "', jtype_2 = 'Salesperson', name_3 = '" + cboprjpm.Text.Trim() + "', jtype_3 = 'ProjectManager', name_4 = '" + cbopjpa.Text.Trim() + "', jtype_4 = 'ProjectAssistant'");
+                    //Updated for SQL SERVER insert
+                    string commandString66 = "INSERT INTO comm_job_type (cid, jid, bid, project_number, project_name, name_1, jtype_1, name_2, jtype_2, name_3, jtype_3, name_4, jtype_4) VALUES ('" + txtccid.Text.Trim() + "', '" + txtpjid.Text.Trim() + "', LAST_INSERT_ID(), '" + txtpjtnum.Text.Trim() + "', '" + txtPrjtName.Text.Trim() + "', '" + cbopjsestr.Text.Trim() + "', '" + "Estimator" + "', '" + cbopjssp.Text.Trim() + "', '" + "Salesperson" + "', '" + cboprjpm.Text.Trim() + "', '" + "ProjectManager" + "', '" + cbopjpa.Text.Trim() + "', '" + "ProjectManager" + "');";
                     SqlCommand mysqlcommand66 = new SqlCommand(commandString66, MySqlConn);
                     DataTable table66 = GetDataTable(
                         // Pass open database connection to function
