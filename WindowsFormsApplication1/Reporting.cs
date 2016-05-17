@@ -1194,7 +1194,7 @@ namespace WindowsFormsApplication1
             String indvName = cboindcomm.Text.Trim();
 
 
-            SqlDataAdapter adap3 = new SqlDataAdapter("SELECT ALL billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.project_name, billing.project_number, billing.cid, billing.jid, billing.chkd_actcost, billing.estimator_percent, CAST(billing.estimator_comm as decimal(10,2)) estimator_comm, billing.salesperson_percent, CAST(billing.salesperson_comm as decimal(10,2)) salesperson_comm, billing.projectmgr_percent, CAST(billing.projectmgr_comm as decimal(10,2)) projectmgr_comm, billing.projectasst_percent, CAST(billing.projectasst_comm as decimal(10,2)) projectasst_comm, billing.payest_gp, billing.payact_gp, company.company_name, job.job_name, comm_job_type.bid, comm_job_type.project_number, comm_job_type.project_name, comm_job_type.name_1, comm_job_type.jtype_1, comm_job_type.name_2, comm_job_type.jtype_2, comm_job_type.name_3, comm_job_type.jtype_3, comm_job_type.name_4, comm_job_type.jtype_4 FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN comm_job_type ON billing.project_number = comm_job_type.project_number WHERE billing.paid_date >= '" + indvStDt.Text.Trim() + "' AND billing.paid_date <= '" + indvEnDt.Text.Trim() + "'", MySqlConn);
+            SqlDataAdapter adap3 = new SqlDataAdapter("SELECT ALL billing.paid_date, billing.paid_amt, billing.billing_date, billing.billing_amt, billing.project_name, billing.project_number, billing.cid, billing.jid, billing.chkd_actcost, billing.estimator_percent, CAST(billing.estimator_comm as decimal(10,2)) estimator_comm, billing.salesperson_percent, CAST(billing.salesperson_comm as decimal(10,2)) salesperson_comm, billing.projectmgr_percent, CAST(billing.projectmgr_comm as decimal(10,2)) projectmgr_comm, billing.projectasst_percent, CAST(billing.projectasst_comm as decimal(10,2)) projectasst_comm, billing.payest_gp, billing.payact_gp, CAST(company.company_name as text) company_name, job.job_name, comm_job_type.bid, comm_job_type.project_number, comm_job_type.project_name, comm_job_type.name_1, comm_job_type.jtype_1, comm_job_type.name_2, comm_job_type.jtype_2, comm_job_type.name_3, comm_job_type.jtype_3, comm_job_type.name_4, comm_job_type.jtype_4 FROM (billing LEFT JOIN company on billing.cid = company.cid) LEFT JOIN job ON billing.jid = job.jid LEFT JOIN comm_job_type ON billing.project_number = comm_job_type.project_number WHERE billing.paid_date >= '" + indvStDt.Text.Trim() + "' AND billing.paid_date <= '" + indvEnDt.Text.Trim() + "'", MySqlConn);
             
             
             DataSet dsOvrRpt2 = new DataSet("DataTable3");
@@ -1203,7 +1203,7 @@ namespace WindowsFormsApplication1
             DataSet indvFill = new DataSet("DataTable3");
 
             foreach (DataRow ge in dsOvrRpt2.Tables[0].Rows)
-            {
+            {                  
                 if (ge[24].ToString() == indvName.ToString())
                 {
                     DataRow dr;
@@ -1375,20 +1375,28 @@ namespace WindowsFormsApplication1
                             myArray[9] = " ";
                             myArray[10] = " ";
                         }
+                        
                         //if (ge[25] != indvName.ToString())
                         //{
                         //    myArray[25] = " ";
                         //}
-                        
-                        //myArray[24] = ge.ItemArray[24];
-                        //myArray[25] = ge.ItemArray[25];
-                        myArray[26] = " ";
+
+                            //myArray[24] = ge.ItemArray[24];
+                            //myArray[25] = ge.ItemArray[25];
+                            myArray[26] = " ";
                         myArray[27] = ge.ItemArray[27];
                         if (ge[28].ToString() == cboindcomm.Text.Trim())
                         {
                             myArray[29] = ge.ItemArray[29];
                             myArray[13] = ge.ItemArray[13];
                             myArray[14] = ge.ItemArray[14];
+
+                        }
+                        else
+                        {
+                            myArray[13] = " ";
+                            myArray[14] = " ";
+                            myArray[29] = " ";
 
                         }
                         //if (ge[29] != indvName.ToString())
