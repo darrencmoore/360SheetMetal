@@ -768,7 +768,7 @@ namespace WindowsFormsApplication1
 
                 //string commandString44 = ("INSERT into projectstaff SET psname = '" + txtpjsest.Text.Trim() + "'");//, salesperson = '" + txtpjssp.Text.Trim() + "', projectmgr = '" + txtpjspm.Text.Trim() + "', projectasst = '" + txtpjspa.Text.Trim() + "'");
                 //Updated for SQL SERVER insert
-                string commandString44 = "INSERT INTO prjectstaff (psname) VALUES ('" + txtpjsest.Text.Trim() + "');";
+                string commandString44 = "INSERT INTO projectstaff (psname) VALUES ('" + txtpjsest.Text.Trim() + "');";
                 DataTable table = GetDataTable(
                     // Pass open database connection to function
         ref MySqlConn,
