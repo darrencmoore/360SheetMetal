@@ -1562,7 +1562,7 @@ namespace WindowsFormsApplication1
                                 txtPaidAmt.Text = t.Replace(",", "");
                                 String tl2 = txtPaidAmt.Text.Trim();
 
-                                string commandString76 = ("SELECT SUM(CAST(paid_amt as decimal)) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
+                                string commandString76 = ("SELECT SUM(CAST(paid_amt as decimal(10,2))) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
                                 SqlCommand mysqlcommand76 = new SqlCommand(commandString76, MySqlConn);
 
@@ -1574,7 +1574,7 @@ namespace WindowsFormsApplication1
 
 
                                 txttlpdAmt.DataBindings.Clear();
-                                txttlpdAmt.DataBindings.Add(new Binding("Text", table76, "SUM(CAST(paid_amt as decimal))", true));     // txttlpdAmt.DataBindings.Add(new Binding("Text", table76, "SUM(paid_amt)", true));                            
+                                txttlpdAmt.DataBindings.Add(new Binding("Text", table76, "SUM(CAST(paid_amt as decimal(10,2)))", true));     // txttlpdAmt.DataBindings.Add(new Binding("Text", table76, "SUM(paid_amt)", true));                            
                                 decimal pd2Amt;
                                 decimal newpd2Amt;
                                 decimal finalTl2Ansr;
@@ -1617,7 +1617,7 @@ namespace WindowsFormsApplication1
                             //        // Pass SQL statement to create SqlDataReader
                             //commandString91);
 
-                                string commandString91 = ("SELECT SUM(CAST(estimator_comm as decimal)), SUM(CAST(salesperson_comm as decimal)), SUM(CAST(projectmgr_comm as decimal)), SUM(CAST(projectasst_comm as decimal)) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
+                                string commandString91 = ("SELECT SUM(CAST(estimator_comm as decimal(10,2))), SUM(CAST(salesperson_comm as decimal(10,2))), SUM(CAST(projectmgr_comm as decimal(10,2))), SUM(CAST(projectasst_comm as decimal(10,2))) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
                                 SqlCommand mysqlcommand5 = new SqlCommand(commandString91, MySqlConn);
 
                                 DataTable table91 = GetDataTable(
@@ -1628,28 +1628,28 @@ namespace WindowsFormsApplication1
 
 
                                 txtbestpaidcomm.DataBindings.Clear();
-                                txtbestpaidcomm.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(estimator_comm as decimal))", true)); //"SUM(estimator_comm)"
+                                txtbestpaidcomm.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(estimator_comm as decimal(10,2)))", true)); //"SUM(estimator_comm)"
                                 decimal bestpaid2;
                                 bestpaid2 = decimal.Parse(txtbestpaidcomm.Text);
                                 txtbestpaidcomm.Text = bestpaid2.ToString("#####0.00");
                                 act2EstrPaidComm = decimal.Parse(txtbestpaidcomm.Text);
 
                                 txtbspcommpaid.DataBindings.Clear();
-                                txtbspcommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(salesperson_comm as decimal))", true)); // "SUM(salesperson_comm)"
+                                txtbspcommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(salesperson_comm as decimal(10,2)))", true)); // "SUM(salesperson_comm)"
                                 decimal bsppaid2;
                                 bsppaid2 = decimal.Parse(txtbspcommpaid.Text);
                                 txtbspcommpaid.Text = bsppaid2.ToString("#####0.00");
                                 act2SpPaidComm = decimal.Parse(txtbspcommpaid.Text);
 
                                 txtbpmcommpaid.DataBindings.Clear();
-                                txtbpmcommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(projectmgr_comm as decimal))", true));
+                                txtbpmcommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(projectmgr_comm as decimal(10,2)))", true));
                                 decimal bpmpaid2;
                                 bpmpaid2 = decimal.Parse(txtbpmcommpaid.Text);
                                 txtbpmcommpaid.Text = bpmpaid2.ToString("#####0.00");
                                 act2PmPaidComm = decimal.Parse(txtbpmcommpaid.Text);
 
                                 txtbpacommpaid.DataBindings.Clear();
-                                txtbpacommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(projectasst_comm as decimal))", true));
+                                txtbpacommpaid.DataBindings.Add(new Binding("Text", table91, "SUM(CAST(projectasst_comm as decimal(10,2)))", true));
                                 decimal bpapaid2;
                                 bpapaid2 = decimal.Parse(txtbpacommpaid.Text);
                                 txtbpacommpaid.Text = bpapaid2.ToString("#####0.00");
@@ -1782,7 +1782,7 @@ namespace WindowsFormsApplication1
                                 String tl = txtPaidAmt.Text.Trim();
 
                                 //This adds the total paid amount for the project
-                                string commandString4 = ("SELECT SUM(CAST(paid_amt as decimal)) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
+                                string commandString4 = ("SELECT SUM(CAST(paid_amt as decimal(10,2))) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
 
                                 SqlCommand mysqlcommand4 = new SqlCommand(commandString4, MySqlConn);
 
@@ -1796,7 +1796,7 @@ namespace WindowsFormsApplication1
 
                                 //totalBillingPaid = table4.Rows[t];
                                 txttlpdAmt.DataBindings.Clear();
-                                txttlpdAmt.DataBindings.Add(new Binding("Text", table4, "SUM(CAST(paid_amt as decimal))", true)); 
+                                txttlpdAmt.DataBindings.Add(new Binding("Text", table4, "SUM(CAST(paid_amt as decimal(10,2)))", true)); 
                                 //adding new paid amount to the total paid amount
                                 
                                 decimal pdAmt;
@@ -1846,7 +1846,7 @@ namespace WindowsFormsApplication1
                             //commandString5);
 
 
-                                string commandString5 = ("SELECT SUM(CAST(estimator_comm as decimal)), SUM(CAST(salesperson_comm as decimal)), SUM(CAST(projectmgr_comm as decimal)), SUM(CAST(projectasst_comm as decimal)) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
+                                string commandString5 = ("SELECT SUM(CAST(estimator_comm as decimal(10,2))), SUM(CAST(salesperson_comm as decimal(10,2))), SUM(CAST(projectmgr_comm as decimal(10,2))), SUM(CAST(projectasst_comm as decimal(10,2))) FROM billing WHERE project_number = '" + txtbpjtnum.Text.Trim() + "'");
                                 SqlCommand mysqlcommand6 = new SqlCommand(commandString5, MySqlConn);
 
                                 DataTable table5 = GetDataTable(
@@ -1856,28 +1856,28 @@ namespace WindowsFormsApplication1
                             commandString5);
 
                                 txtbestpaidcomm.DataBindings.Clear();
-                                txtbestpaidcomm.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(estimator_comm as decimal))", true));
+                                txtbestpaidcomm.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(estimator_comm as decimal(10,2)))", true));
                                 decimal bestpaid;
                                 bestpaid = decimal.Parse(txtbestpaidcomm.Text);
                                 txtbestpaidcomm.Text = bestpaid.ToString("#####0.00");
                                 actEstrPaidComm = decimal.Parse(txtbestpaidcomm.Text);
 
                                 txtbspcommpaid.DataBindings.Clear();
-                                txtbspcommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(salesperson_comm as decimal))", true));
+                                txtbspcommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(salesperson_comm as decimal(10,2)))", true));
                                 decimal bsppaid;
                                 bsppaid = decimal.Parse(txtbspcommpaid.Text);
                                 txtbspcommpaid.Text = bsppaid.ToString("#####0.00");
                                 actSpPaidComm = decimal.Parse(txtbspcommpaid.Text);
 
                                 txtbpmcommpaid.DataBindings.Clear();
-                                txtbpmcommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(projectmgr_comm as decimal))", true));
+                                txtbpmcommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(projectmgr_comm as decimal(10,2)))", true));
                                 decimal bpmpaid;
                                 bpmpaid = decimal.Parse(txtbpmcommpaid.Text);
                                 txtbpmcommpaid.Text = bpmpaid.ToString("#####0.00");
                                 actPmPaidComm = decimal.Parse(txtbpmcommpaid.Text);
 
                                 txtbpacommpaid.DataBindings.Clear();
-                                txtbpacommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(projectasst_comm as decimal))", true));
+                                txtbpacommpaid.DataBindings.Add(new Binding("Text", table5, "SUM(CAST(projectasst_comm as decimal(10,2)))", true));
                                 decimal bpapaid;
                                 bpapaid = decimal.Parse(txtbpacommpaid.Text);
                                 txtbpacommpaid.Text = bpapaid.ToString("#####0.00");
